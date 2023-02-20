@@ -1,0 +1,18 @@
+{
+  "type": "module",
+  "name": "preentrega1",
+  "version": "1.0.0",
+  "main": "index.js",
+  "devDependencies": {},
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "scripts": {
+    "test": "nodemon app.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "fs": "^0.0.1-security"
+  }
+}
