@@ -1,0 +1,14 @@
+<div class="productsFormAndContainer">
+
+    <div class="productsListContainer">
+        {{#each products}}
+        <div class="productCard">
+            <h1>
+                {{this.title}}
+            </h1>
+            <h2>{{this.price}}</h2>
+            <a href="/api/products/{{this.id}}"><button class="blueButton">VER DETALLE</button></a>
+        </div>
+        {{/each}}
+    </div>
+</div>
