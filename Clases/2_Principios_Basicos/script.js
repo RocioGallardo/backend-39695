@@ -84,7 +84,7 @@ class Contador{
         console.log("sumado !")
         Contador.contadorGlobal++
     }
-    mostrarGlobal(){
+    static mostrarGlobal(){
         console.log(Contador.contadorGlobal)
     }
 }
@@ -95,4 +95,5 @@ const contador2 = new Contador("Ro")
 contador1.sumar()
 contador2.sumar()
 contador1.sumar()
-contador2.mostrarGlobal()
+
+Contador.mostrarGlobal()
