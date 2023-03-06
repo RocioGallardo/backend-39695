@@ -1,6 +1,6 @@
 /*
 
-Cambios importantes de ES&
+Cambios importantes de ES6
 - Let y Const
 el scope para un let, o para un const es en bloque, sin embargo const además prohibe la reasignacion de valores OJO ! no quiere decir que es inmutable, si el valor es un array o un objeto , se pueden cambiar los valores internos de sus elementos
 
