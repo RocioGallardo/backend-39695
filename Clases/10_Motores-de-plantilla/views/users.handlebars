@@ -1,1 +1,14 @@
-    <h1>Usuarios</h1>
+<h1>Usuarios</h1>
+{{#if hayUsuarios}}
+<ul>
+    {{#each usuarios}}
+    <li>
+        {{this.nombre}}
+    </li>
+    {{/each}}
+</ul>
+
+{{!-- {{usuarios}} --}}
+{{else}}
+<h3>no hay usuarios para mostrar</h3>
+{{/if}}

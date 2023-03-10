@@ -65,7 +65,7 @@ usersWebRouter.get("/",async (req, res) => {
 
 usersWebRouter.get("/",async (req, res) => {
     const users = usersManager.obtenerTodos()
-    res.render("users", {titulo: "usuarios"})
+    res.render("users", {titulo : "hola soy un titulo",hayUsuarios: users.length > 0, usuarios:users})//le mando un objeto con la variable que quiero que se incruste en el html
 })
 
 export default usersWebRouter

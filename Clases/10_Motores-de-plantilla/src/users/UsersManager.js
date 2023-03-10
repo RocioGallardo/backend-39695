@@ -1,6 +1,6 @@
 class UsersManager{
     constructor(){
-        this.users = []
+        this.users = [{nombre: "pepe"}]
     }
     obtenerTodos(){
         return this.users
