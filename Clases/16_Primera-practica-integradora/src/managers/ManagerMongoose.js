@@ -7,7 +7,7 @@ export class ManagerMongoose{
         this.coleccion = mongoose.model(nombreColeccion, new mongoose.Schema(schema))
     }
     async guardar(registro){
-        coleccion.create(registro)
+        await this.coleccion.create(registro)
     }
 
 }
