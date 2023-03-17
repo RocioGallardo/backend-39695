@@ -1,4 +1,4 @@
-class PersonasManager {
+export default class PersonasManager {
     constructor() {
         this.personas = [];
     }

@@ -1,7 +1,7 @@
 import { Router } from "express"
-import {personasManager} from "./PersonasManager.js"
+import PersonasManager from "./PersonasManager.js"
 
-const personasManager = new personasManager
+const personasManager = new PersonasManager
 
 
 export const apiRouter = Router();
