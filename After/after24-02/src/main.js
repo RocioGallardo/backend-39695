@@ -28,4 +28,8 @@ io.on("conection", socket => {
         productManager.agregar(prod)
         io.sockets.emit("actualizar", productManager.obtenerTodos())
     })
+
+    socket.on("refrescar", () => {
+        io.sockets.emit("actualizar", productManager.obtenerTodos())
+    })
 })
