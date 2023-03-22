@@ -1,8 +1,8 @@
-import {ManagerMongoose} from "./ManagerMongoose.js"
+import { ManagerMongoose } from './ManagerMongoose.js'
 
-export const pacientesManager = new ManagerMongoose("pacientes", {
-    dni:{type: Sring, required: true},
-    nombre:{type: Sring, required: true},
-    apellido:{type: Sring, required: true},
-    dni:{type: Number, required: true},
+export const pacientesManager = new ManagerMongoose('pacientes', {
+    dni: { type: String, required: true },
+    nombre: { type: String, required: true },
+    apellido: { type: String, required: true },
+    edad: { type: Number, required: true },
 })

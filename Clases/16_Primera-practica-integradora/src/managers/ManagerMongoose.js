@@ -1,14 +1,15 @@
-import mongoose from "mongoose"
+import mongoose, { model, Schema } from 'mongoose'
 
-await mongoose.connect("mongodb://localhost/coderhouse")
 
-export class ManagerMongoose{
-    constructor(nombreColeccion, schema){
-        this.coleccion = mongoose.model(nombreColeccion, new mongoose.Schema(schema))
+
+export class ManagerMongoose {
+    constructor(nombreColeccion, schema) {
+        this.coleccion = model(nombreColeccion, new Schema(schema, { versionKey: false }))
     }
-    async guardar(registro){
-        await this.coleccion.create(registro)
+    async guardar(registro) {
+        return await this.coleccion.create(registro)
     }
-
+    async obtenerTodos() {
+        return await this.coleccion.find({}).lean()
+    }
 }
-
