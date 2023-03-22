@@ -69,31 +69,4 @@ persona1.getEspecie()
 persona2.getEspecie()
 
 
-//HANDS ON LAB - CREACIÓN DE UNA CLASE CONTADOR
 
-
-
-class Contador{
-    constructor(nombre){
-        this.nombreResponsable = nombre
-        this.contador = 0
-    }
-    static contadorGlobal = 0
-    sumar(){
-        this.contador++
-        console.log("sumado !")
-        Contador.contadorGlobal++
-    }
-    static mostrarGlobal(){
-        console.log(Contador.contadorGlobal)
-    }
-}
-
-const contador1 = new Contador("Marian")
-const contador2 = new Contador("Ro")
-
-contador1.sumar()
-contador2.sumar()
-contador1.sumar()
-
-Contador.mostrarGlobal()
