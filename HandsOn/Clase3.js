@@ -29,7 +29,6 @@ class TicketManager{
     #pecioBaseDeGanancia
     constructor(){
         this.eventos = []
-        this.#pecioBaseDeGanancia = 10
     }
     getEventos(){
         console.log(this.eventos)
