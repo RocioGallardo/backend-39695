@@ -1,4 +1,4 @@
-import { pacientesManager } from '../managers/PacientesManager.js'
+import { pacientesManager } from '../managers/pacientes.manager.js'
 
 class PacientesService {
     async registrar(datosFuturoPaciente) {

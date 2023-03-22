@@ -1,1 +1,1 @@
-export const URLMongo = "mongodb://localhost/coderhouse"
+export const MONGODB_CNX_STR = "mongodb://localhost/coderhouse"

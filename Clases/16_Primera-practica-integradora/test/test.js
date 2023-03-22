@@ -1,12 +1,12 @@
 import mongoose from 'mongoose'
-import { pacientesService } from '../src/services/pacientes.service.js'
-import { DatosFuturoPaciente } from '../src/models/DatosFuturoPaciente.js'
-import { URLMongo} from '../src/config/mongodb.js'
+import { DatosFuturoPaciente } from '../../src/models/DatosFuturoPaciente.js'
+import { pacientesService } from '../../src/services/pacientes.service.js'
+import { MONGODB_CNX_STR } from '../../src/config/mongodb.js'
 
-await mongoose.connect(URLMongo)
+await mongoose.connect(MONGODB_CNX_STR)
 
 const datosFuturoPaciente = new DatosFuturoPaciente({
-    nombre: 'rocio',
+    nombre: 'ro',
     apellido: 'gallardo',
     dni: '123456',
     edad: 27

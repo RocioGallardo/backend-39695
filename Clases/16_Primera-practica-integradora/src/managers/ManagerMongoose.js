@@ -1,10 +1,8 @@
-import mongoose, { model, Schema } from 'mongoose'
-
-
+import mongoose from 'mongoose'
 
 export class ManagerMongoose {
     constructor(nombreColeccion, schema) {
-        this.coleccion = model(nombreColeccion, new Schema(schema, { versionKey: false }))
+        this.coleccion = mongoose.model(nombreColeccion, new mongoose.Schema(schema, { versionKey: false }))
     }
     async guardar(registro) {
         return await this.coleccion.create(registro)
