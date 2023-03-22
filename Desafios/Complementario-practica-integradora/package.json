@@ -1,18 +1,21 @@
 {
   "type": "module",
-  "name": "complementario-practica-integradora",
+  "name": "16_primera-practica-integradora",
   "version": "1.0.0",
-  "description": "",
   "main": "src/main.js",
   "scripts": {
-    "start": "node .",
-    "test": "nodemon ."
+    "start:prod": "node .",
+    "start:dev": "nodemon -e 'js.handlebars.html'.",
+    "test": "nodemon -e 'js.handlebars.html' test/test.js"
   },
+  "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "dotenv": "^16.0.3",
     "express": "^4.18.2",
     "express-handlebars": "^7.0.2",
-    "socket.io": "^4.6.1"
-  }
+    "mongoose": "^7.0.2"
+  },
+  "description": ""
 }
