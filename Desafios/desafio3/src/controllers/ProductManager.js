@@ -1,4 +1,4 @@
-import Product from "../models/Product.js"
+import Product from "../models/Products.js"
 import { readFile, writeFile } from "fs/promises"
 class ProductManager {
     _products
@@ -103,4 +103,4 @@ class ProductManager {
 }
 const productsController = new ProductManager("./src/database/products.json")
 
-export {productsController};
+export default productsController

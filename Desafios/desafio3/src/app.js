@@ -1,12 +1,14 @@
 import express from "express";
-import { productsController } from "./controllers/ProductManager.js";
+import  productsController  from "./controllers/ProductManager.js";
 const app = express()
 
-app.listen(3001, () => {
-    console.log("Server up")
+app.listen(8080, () => {
+    console.log("conectado al 8080")
 })
+
 app.use(express.json())
 app.use(express.urlencoded({extended: true}))
+
 app.post("/api/products", async (req, res) => {
     const response = await productsController.addProduct(req.body)
     if (response.pending) return res.json(response)
@@ -22,14 +24,12 @@ app.get("/api/products", async (req, res) => {
     }
 })
 app.get("/api/products/:pid", async (req, res) => {
-    const pid = req.params.pid
-    const response = await productsController.getProductById(pid)
-    if (!product) return res.json(response)
-    return res.json(response)
+    const product = await productsController.getProductById(req.params.pid)
+    if (!product) return res.json(product)
+    return res.json(product)
 })
 app.delete("/api/products/:pid", async (req, res) => {
-    const pid = req.params.pid
-    const response = await productsController.deleteProduct(pid)
+    const response = await productsController.deleteProduct(req.params.pid)
     if (response.pending) return res.json(response)
     res.json(response)
 })
