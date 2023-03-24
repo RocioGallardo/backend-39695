@@ -1,3 +1,13 @@
+/* asincronismo 
+
+Manejo de archivos :
+fs en nodejs
+    - fs síncrono
+    - fs con callbacks
+    - fs con promesas
+*/
+
+
 // Math.sqrt(25)
 
 
