@@ -1,0 +1,13 @@
+{
+  "name": "8_express-avanzado",
+  "version": "1.0.0",
+  "description": "",
+  "main": "src/main.js",
+  "scripts": {
+    "start": "node .",
+    "test": "nodemon ."
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
