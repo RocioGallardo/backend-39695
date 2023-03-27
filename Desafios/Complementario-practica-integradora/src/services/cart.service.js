@@ -1,4 +1,4 @@
-import { cartManager } from '../managers/CartManager.js'
+import { cartManager } from '../dao/models/CartManager.js'
 
 class CartService {
     async registrar(DatosCartACargar) {

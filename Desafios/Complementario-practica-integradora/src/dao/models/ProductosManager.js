@@ -1,4 +1,4 @@
-import { ManagerMongoose } from './ManagerMongoose.js'
+import { ManagerMongoose } from '../managersDB/ManagerMongoose.js'
 
 export const productosManager = new ManagerMongoose('productos', {
     title: { type: String, required: true },

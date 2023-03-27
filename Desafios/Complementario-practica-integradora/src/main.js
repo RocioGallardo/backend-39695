@@ -9,6 +9,8 @@ import { engine } from 'express-handlebars'
 
 export const app = express()
 
+
+
 app.engine('handlebars', engine())
 app.set('views', './views')
 app.set('view engine', 'handlebars')

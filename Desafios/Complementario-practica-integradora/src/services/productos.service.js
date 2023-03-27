@@ -1,4 +1,4 @@
-import { productosManager } from '../managers/ProductosManager.js'
+import { productosManager } from '../dao/models/ProductosManager.js'
 
 class ProductosService {
     async registrar(DatosProductoACargar) {
@@ -10,6 +10,15 @@ class ProductosService {
         const productos = await productosManager.obtenerTodos()
         console.log('productos:', productos)
         return productos
+    }
+
+    async mostrarUnoSegunId(id){
+        const producto = await productosManager.obtenerPorId(id)
+        return producto
+    }
+    
+    async eliminarUnoSegunId(id){
+        const producto = await productosManager.eliminarPorId(id)
     }
 }
 
