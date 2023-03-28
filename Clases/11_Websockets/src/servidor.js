@@ -20,7 +20,7 @@ io.on("connection", socket => { // este evento es el socket del extremo del serv
     console.log("nuevo cliente conectado")
     socket.on("respuesta", data => console.log(data))
     // para escribir mensajes
-    // socket.emit("mensaje", "hola como estas")
+    socket.emit("mensaje", "hola como estas")
     // para todos los sockets
     io.sockets.emit("mensaje", "hola como estan a todos")
 })
