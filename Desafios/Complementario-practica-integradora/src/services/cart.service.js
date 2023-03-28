@@ -1,16 +1,31 @@
 import { cartManager } from '../dao/models/CartManager.js'
 
 class CartService {
-    async registrar(DatosCartACargar) {
-        const cartRegistrado = await cartManager.guardar(DatosCartACargar)
-        return cartRegistrado
+
+    async crearCarrito(){
+        await cartManager.crearCarrito()
     }
 
-    async listar() {
-        const cart = await cartManager.obtenerTodos()
-        console.log('cart:', cart)
-        return cart
+    async mostrarCarritos(){
+        const resultado = await cartManager.mostrarCarritos()
+        return resultado
     }
+
+    async agregarProducto({idCarrito, idProducto, cantidad}){
+        await cartManager.agregarProducto(idCarrito, idProducto, cantidad)
+    }
+
+    async actualizarCantidadProducto(idCarrito,idProducto,cantidad){
+        await cartManager.actualizarCantidadProducto(idCarrito, idProducto, cantidad)
+    }
+
+    async eliminarProducto(idCarrito, idProducto){
+        await cartManager.eliminarProducto(idCarrito, idProducto)
+    }
+
+    async vaciarCarrito(idCarrito){
+        await cartManager.vaciarCarrito(idCarrito)
+    } 
 }
 
 export const cartService = new CartService()
