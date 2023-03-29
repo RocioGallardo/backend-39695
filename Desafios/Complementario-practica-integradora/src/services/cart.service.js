@@ -6,8 +6,8 @@ class CartService {
         await cartManager.crearCarrito()
     }
 
-    async mostrarCarritos(){
-        const resultado = await cartManager.mostrarCarritos()
+    async mostrarCarritos(id){
+        const resultado = await cartManager.mostrarCarritos(id)
         return resultado
     }
 

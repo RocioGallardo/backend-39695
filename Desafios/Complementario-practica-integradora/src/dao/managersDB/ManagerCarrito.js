@@ -9,10 +9,41 @@ export class ManagerCarrito {
         const carrito = await this.collection.create({ listProducts: [] });
         return carrito._id.toString();
     }
-
-    async mostrarCarritos() {
-        return await this.collection.find({}).lean();
+    async mostrarCarritos(id) {
+        try {
+            if (id) {
+                const carrito = await this.collection
+                    .findById(id)
+                    .populate('listProducts.productId')
+                    .lean();
+                return carrito;
+            } else {
+                const carritos = await this.collection
+                    .find({})
+                    .populate('listProducts.productId')
+                    .lean();
+                return carritos;
+            }
+        } catch (error) {
+            console.log(`Error en la consulta: ${error}`);
+            throw error;
+        }
     }
+    // async mostrarCarritos(id) {
+    //     if (id) {
+    //         const carrito = await this.collection
+    //             .findById(id)
+    //             .populate('listProducts.productId') // Hacer referencia a la colección "products" utilizando el campo "productId" de la colección "carts"
+    //             .lean();
+    //         return carrito;
+    //     } else {
+    //         const carritos = await this.collection
+    //             .find({})
+    //             .populate('listProducts.productId') // Hacer referencia a la colección "products" utilizando el campo "productId" de la colección "carts"
+    //             .lean();
+    //         return carritos;
+    //     }
+    // }
     async agregarProducto(idCarrito, idProducto, cantidad) {
         const carrito = await this.collection.findById(idCarrito);
         const index = carrito.listProducts.findIndex(item => item.productId === idProducto);
