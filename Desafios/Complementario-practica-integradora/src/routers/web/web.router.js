@@ -9,3 +9,7 @@ webRouter.use('/products', productosRouter)
 webRouter.use('/carts', cartRouter)
 
 
+webRouter.get('/chat', (req, res) => {
+    res.render('chat', { title: 'Chat' })
+})
+

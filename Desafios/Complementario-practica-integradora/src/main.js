@@ -7,6 +7,7 @@ import { MONGODB_CNX_STR } from './config/mogodb.js'
 import { webRouter } from './routers/web/web.router.js'
 import { engine } from 'express-handlebars'
 import { Server } from 'socket.io'
+import { configureMessagesSocket } from './sockets/messages.socket.js'
 
 export const app = express()
 
@@ -15,7 +16,7 @@ export const app = express()
 app.engine('handlebars', engine())
 app.set('views', './views')
 app.set('view engine', 'handlebars')
-app.use(express.static("public"));
+app.use(express.static('public'))
 
 app.use('/api', apiRouter)
 app.use('/', webRouter)
@@ -25,3 +26,7 @@ const servidor = app.listen(PORT, () => { console.log(`conectado a ${PORT}`) })
 
 const io = new Server(servidor)
 
+io.on('connection', socket => {
+    console.log('nuevo socket conectado')
+    configureMessagesSocket(io, socket)
+})

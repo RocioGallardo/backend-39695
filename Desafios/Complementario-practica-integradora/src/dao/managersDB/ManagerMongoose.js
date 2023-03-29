@@ -25,6 +25,11 @@ export class ManagerMongoose {
         return await this.coleccion.findByIdAndDelete(id);
     }
 
+    async eliminarTodos() {
+        const result = await this.coleccion.deleteMany({});
+        return result.deletedCount;
+    }
+
     async obtenerIdPorPropiedad(propiedad, valor) {
         const documento = await this.coleccion.findOne({ [propiedad]: valor }).select('_id').lean();
         return documento ? documento._id : null;

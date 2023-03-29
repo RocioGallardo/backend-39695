@@ -7,6 +7,7 @@ import { productosPostController } from '../../controllers/api/productosPost.con
 export const productosRouter = Router()
 productosRouter.post('/', productosPostController) // guardar producto
 
+// Esto forma parte de la consigna de la segunda preentrega
 // Deberá poder recibir por query params un limit (opcional), una page (opcional), un sort (opcional) y un query (opcional)
 // - limit permitirá devolver sólo el número de elementos solicitados al momento de la petición, en caso de no recibir limit, éste será de 10.
 // - page permitirá devolver la página que queremos buscar, en caso de no recibir page, ésta será de 1
