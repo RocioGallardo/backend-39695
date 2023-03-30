@@ -1,10 +1,18 @@
 import mongoose from 'mongoose';
+import mongoosePaginate from 'mongoose-paginate-v2';
 
 export class ManagerMongoose {
+
     constructor(nombreColeccion, schema) {
-        this.coleccion = mongoose.model(nombreColeccion, new mongoose.Schema(schema, { versionKey: false }));
+        const newSchema = new mongoose.Schema(schema, { versionKey: false });
+        newSchema.plugin(mongoosePaginate);
+        this.coleccion = mongoose.model(nombreColeccion, newSchema);
     }
 
+    // constructor(nombreColeccion, schema) {
+    //     schema.plugin(mongoosePaginate);
+    //     this.coleccion = mongoose.model(nombreColeccion, new mongoose.Schema(schema, { versionKey: false }));
+    // }
     async guardar(registro) {
         return await this.coleccion.create(registro);
     }
@@ -25,9 +33,19 @@ export class ManagerMongoose {
         return await this.coleccion.findByIdAndDelete(id);
     }
 
+    async eliminarTodos() {
+        const result = await this.coleccion.deleteMany({});
+        return result.deletedCount;
+    }
+
     async obtenerIdPorPropiedad(propiedad, valor) {
         const documento = await this.coleccion.findOne({ [propiedad]: valor }).select('_id').lean();
         return documento ? documento._id : null;
+    }
+
+    async paginar(criterioDeBusqueda, opcionesDePaginacion){
+        const result = await this.coleccion.paginate(criterioDeBusqueda, opcionesDePaginacion)
+        return result
     }
 }
 

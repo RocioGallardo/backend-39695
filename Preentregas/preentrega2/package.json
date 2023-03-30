@@ -1,18 +1,23 @@
 {
-  "name": "preentrega2",
+  "type": "module",
+  "name": "16_primera-practica-integradora",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "main": "src/main.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start:prod": "node .",
+    "start:dev": "nodemon -e 'js.handlebars.html'.",
+    "test": "nodemon -e 'js.handlebars.html' test/test.js"
   },
+  "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
     "dotenv": "^16.0.3",
     "express": "^4.18.2",
-    "express-handlebars": "^7.0.4",
-    "mongoose": "^7.0.3",
+    "express-handlebars": "^7.0.2",
+    "mongoose": "^7.0.2",
+    "mongoose-paginate-v2": "^1.7.1",
     "socket.io": "^4.6.1"
-  }
+  },
+  "description": ""
 }

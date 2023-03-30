@@ -8,7 +8,6 @@ class ProductosService {
 
     async listar() {
         const productos = await productosManager.obtenerTodos()
-        console.log('productos:', productos)
         return productos
     }
 
@@ -19,6 +18,12 @@ class ProductosService {
     
     async eliminarUnoSegunId(id){
         const producto = await productosManager.eliminarPorId(id)
+        return producto
+    }
+
+    async mostrarPaginado(criterioDeBusqueda, opcionesDePaginacion){
+        const result = await productosManager.paginar(criterioDeBusqueda, opcionesDePaginacion)
+        return result
     }
 }
 

@@ -5,7 +5,11 @@ import { productosRouter } from './productos.router.js'
 
 export const webRouter = Router()
 
-webRouter.use('/productos', productosRouter)
-webRouter.use('/cart', cartRouter)
+webRouter.use('/products', productosRouter)
+webRouter.use('/carts', cartRouter)
 
+
+webRouter.get('/chat', (req, res) => {
+    res.render('chat', { title: 'Chat' })
+})
 

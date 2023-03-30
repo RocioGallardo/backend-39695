@@ -1,10 +1,14 @@
 
 import { Router } from 'express'
-import { productosGetController } from '../../controllers/api/productosGet.controller.js'
-import { productosGetOneController } from '../../controllers/api/productosGetOne.controller.js'
-import { productosPostController } from '../../controllers/api/productosPost.controller.js'
+
+import { productsGetController,
+        productsGetOneController,
+        productsPostController } from '../../controllers/api/products.controllers.js'
 
 export const productosRouter = Router()
-productosRouter.post('/', productosPostController)
-productosRouter.get('/', productosGetController)
-productosRouter.get('/:pid', productosGetOneController)
+
+productosRouter.post('/', productsPostController) // guardar producto
+productosRouter.get('/:pid', productsGetOneController) // ver solo un producto según id
+productosRouter.get('/', productsGetController) // ver productos
+
+

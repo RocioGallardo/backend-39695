@@ -4,12 +4,14 @@ const paginaDeError = 'error al cargar, intente nuevamente...'
 
 export async function cartsGetController(req, res, next) {
     try {
-        const carts = await cartService.mostrarCarritos()
+        const cart = await cartService.mostrarCarritos(req.params.cid)
+        console.log(cart)
         res.render('carts', { 
-            carts: carts, 
-            hayCarts: carts.length > 0, 
+            cart: cart, 
             titulo: 'Carts' })
     } catch (error) {
         res.send('error:' + JSON.stringify(error))
     }
 }
+
+
