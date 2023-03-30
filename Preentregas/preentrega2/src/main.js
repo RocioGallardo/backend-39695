@@ -8,6 +8,7 @@ import { webRouter } from './routers/web/web.router.js'
 import { engine } from 'express-handlebars'
 import { Server } from 'socket.io'
 import { configureMessagesSocket } from './sockets/messages.socket.js'
+import { agregarAlCarritoSocket } from './sockets/agregrarAlCarrito.socket.js'
 
 export const app = express()
 
@@ -29,4 +30,6 @@ const io = new Server(servidor)
 io.on('connection', socket => {
     console.log('nuevo socket conectado')
     configureMessagesSocket(io, socket)
+    agregarAlCarritoSocket(io, socket)
 })
+

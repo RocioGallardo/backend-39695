@@ -25,6 +25,7 @@ export async function productsGetController(req, res, next) {
             opcionesDePaginacion.sort = { price: -1 };
         }
         const productos = await productosService.mostrarPaginado(criterioDeBusqueda, opcionesDePaginacion)
+        
         res.status(200).json(productos)
     } catch (error) {
         next(error)
@@ -68,3 +69,13 @@ export async function productsGetOneController(req, res, next) {
     }    
 }
 
+export async function productsPutController (req, res, next){
+    try {
+        const idProducto = req.params.pid
+        const datosAActualizar = req.body
+        const productoActualizado = await productosService.actualizarPorId(idProducto, datosAActualizar)
+        res.status(200).json(productoActualizado)
+        } catch (error) {
+            next(error)
+    } 
+}

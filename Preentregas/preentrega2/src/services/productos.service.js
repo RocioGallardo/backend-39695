@@ -15,6 +15,11 @@ class ProductosService {
         const producto = await productosManager.obtenerPorId(id)
         return producto
     }
+
+    async actualizarPorId(id, datosActualizados) {
+        const productoActualizado = await productosManager.actualizarPorId(id, datosActualizados)
+        return productoActualizado
+    }
     
     async eliminarUnoSegunId(id){
         const producto = await productosManager.eliminarPorId(id)

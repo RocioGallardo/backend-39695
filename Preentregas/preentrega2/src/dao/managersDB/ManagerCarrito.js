@@ -33,9 +33,7 @@ export class ManagerCarrito {
     async actualizarCarrito(idCarrito, idProducto, cantidad) {
         const carrito = await this.collection.findById(idCarrito);
         const producto = carrito.listProducts.find(item => item.productId == idProducto);
-        console.log(`el producto es : ${producto}`)
         if (producto) {
-            console.log("sumo la cantidad")
             producto.cantidad += cantidad;
             if (producto.cantidad <= 0) {
                 carrito.listProducts = carrito.listProducts.filter(item => item.productId !== idProducto);
@@ -50,7 +48,7 @@ export class ManagerCarrito {
 
     async eliminarProductoDelCarrito(idCarrito, idProducto) {
         const carrito = await this.collection.findById(idCarrito);
-        const index = carrito.listProducts.findIndex(item => item.productId === idProducto);
+        const index = carrito.listProducts.findIndex(item => item.productId == idProducto);
 
         if (index === -1) {
             throw new Error('Producto no encontrado en el carrito');
@@ -65,7 +63,6 @@ export class ManagerCarrito {
     async vaciarCarrito(idCarrito) {
         const carrito = await this.collection.findById(idCarrito);
         carrito.listProducts = [];
-
         await carrito.save();
         return carrito.listProducts;
     }

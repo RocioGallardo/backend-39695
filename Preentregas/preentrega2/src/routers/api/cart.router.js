@@ -2,13 +2,16 @@ import { Router } from 'express'
 import { cartPostController, 
         cartPutController,
         cartsGetOneController, 
-        cartsGetController } from '../../controllers/api/cart.controllers.js'
+        cartsGetController,
+        cartsDeleteProductsController} from '../../controllers/api/cart.controllers.js'
 
 export const cartRouter = Router()
 
 // POST
 
 cartRouter.post('/', cartPostController) // crear carrito
+
+
 
 //PUT
 
@@ -27,8 +30,15 @@ cartRouter.get('/:cid', cartsGetOneController) // ver  un carrito
 cartRouter.get('/', cartsGetController) // ver todos los carritos
 
 
-// Además, agregar al router de carts los siguientes endpoints:
-//     DELETE api/carts/:cid/products/:pid deberá eliminar del carrito el producto seleccionado.
-//     DELETE api/carts/:cid deberá eliminar todos los productos del carrito 
+
+//DELETE
+
+// listo     DELETE api/carts/:cid/products/:pid deberá eliminar del carrito el producto seleccionado.
+cartRouter.delete('/:cid/products/:pid', cartsDeleteProductsController)
+// listo    DELETE api/carts/:cid deberá eliminar todos los productos del carrito 
+cartRouter.delete('/:cid/', cartsDeleteProductsController)
+
+
+
 
 

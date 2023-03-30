@@ -24,8 +24,6 @@ export async function cartPutController(req, res, next) {
 }
 
 
-
-
 export async function cartsGetOneController(req, res, next) {
     try {
         const carts = await cartService.mostrarCarritos(req.params.cid )
@@ -43,3 +41,16 @@ export async function cartsGetController(req, res, next) {
         next(error)
     }
 }
+
+
+export async function cartsDeleteProductsController(req, res, next) {
+    try {
+        const idDelProducto = req.params.pid || null
+        const carritoActualizado = await cartService.eliminarProducto(req.params.cid, idDelProducto)
+        res.status(200).json(carritoActualizado)
+    } catch (error) {
+        next(error)
+    }
+}
+
+

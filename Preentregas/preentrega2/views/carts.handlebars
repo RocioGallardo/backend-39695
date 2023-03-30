@@ -1,41 +1,28 @@
-<h1>Detalles del Carrito</h1>
-<p>ID del carrito: {{cart._id}}</p>
-<ul>
-    {{#each cart.listProducts}}
-    <li>
-        <p>ID del producto: {{this.productId._id}}</p>
-        <p>Nombre del producto: {{this.productId.title}}</p>
-        <p>Descripción del producto: {{this.productId.description}}</p>
-                <p>Precio del producto: {{this.productId.price}}</p>
-                <p>Imagen del producto: {{this.productId.thumbnail}}</p>
-                <p>Código del producto: {{this.productId.code}}</p>
-                <p>Stock del producto: {{this.productId.stock}}</p>
-        <p>Cantidad: {{this.cantidad}}</p>
-    </li>
-    {{/each}}
-</ul>
+<h1>{{#if isArray}}Detalles de los carritos
+    {{else}}Detalles del carrito{{/if}}</h1>
 
-
-{{!-- <h1>Detalles del Carrito</h1>
-<p>ID del carrito: {{cart._id}}</p>
-<ul>
-    {{#each cart.listProducts}}
-    <li>
-        <p>ID del producto: {{this.productId}}</p>
-        <p>Cantidad: {{this.cantidad}}</p>
-    </li>
-    {{/each}}
-</ul> --}}
-
-{{!-- <h1>Lista de Carritos</h1>
-{{#if carts}}
-<ul>
-    {{#each carts}}
-    <li>
-        <p>ID del carrito: {{this._id}}</p>
-        <p>Productos:</p>
+{{#if isArray}}
+    {{#each cart}}
+        <h2>ID del carrito: {{this._id}}</h2>
         <ul>
             {{#each this.listProducts}}
+                <li>
+                    <p>ID del producto: {{this.productId._id}}</p>
+                    <p>Nombre del producto: {{this.productId.title}}</p>
+                    <p>Descripción del producto: {{this.productId.description}}</p>
+                    <p>Precio del producto: {{this.productId.price}}</p>
+                    <p>Imagen del producto: {{this.productId.thumbnail}}</p>
+                    <p>Código del producto: {{this.productId.code}}</p>
+                    <p>Stock del producto: {{this.productId.stock}}</p>
+                    <p>Cantidad: {{this.cantidad}}</p>
+                </li>
+            {{/each}}
+        </ul>
+    {{/each}}
+{{else}}
+    <h2>ID del carrito: {{cart._id}}</h2>
+    <ul>
+        {{#each cart.listProducts}}
             <li>
                 <p>ID del producto: {{this.productId._id}}</p>
                 <p>Nombre del producto: {{this.productId.title}}</p>
@@ -46,62 +33,7 @@
                 <p>Stock del producto: {{this.productId.stock}}</p>
                 <p>Cantidad: {{this.cantidad}}</p>
             </li>
-            {{/each}}
-        </ul>
-    </li>
-    {{/each}}
-</ul>
-{{else}}
-<p>No hay carritos registrados.</p>
-{{/if}} --}}
+        {{/each}}
+    </ul>
+{{/if}}
 
-
-{{!-- <h1>Lista de Carritos</h1>
-{{#if carts.length}}
-<ul>
-    {{#each carts}}
-    <li>
-        <p>ID del carrito: {{this._id}}</p>
-        <p>Productos:</p>
-        <ul>
-            {{#each this.listProducts}}
-            <li>
-                <p>ID del producto: {{this.productId}}</p>
-                <p>nombre del producto: {{this.listProducts.title}}</p>
-                <p>nombre del producto: {{this.title}}</p>
-                <p>Cantidad: {{this.cantidad}}</p>
-            </li>
-            {{/each}}
-        </ul>
-    </li>
-    {{/each}}
-</ul>
-{{else}}
-<p>No hay carritos registrados.</p>
-{{/if}} --}}
-
-{{!-- <h1>Lista de Carritos</h1>
-{{#if carts.length}}
-<ul>
-    {{#each carts}}
-    <li>
-        <p>ID del carrito: {{this._id}}</p>
-        <p>Productos:</p>
-        <ul>
-            {{#each this.listProducts}}
-            <li>
-                <p>ID del producto: {{this.productId}}</p>
-                <p>Cantidad: {{this.cantidad}}</p>
-                {{#with (lookup ../products this.productId)}}
-                <p>Nombre del producto: {{name}}</p>
-                <p>Precio del producto: {{price}}</p>
-                {{/with}}
-            </li>
-            {{/each}}
-        </ul>
-    </li>
-    {{/each}}
-</ul>
-{{else}}
-<p>No hay carritos registrados.</p>
-{{/if}} --}}

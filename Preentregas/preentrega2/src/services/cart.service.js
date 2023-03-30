@@ -18,12 +18,15 @@ class CartService {
 
 
     async eliminarProducto(idCarrito, idProducto){
-        await cartManager.eliminarProducto(idCarrito, idProducto)
+        if(idProducto){
+            await cartManager.eliminarProductoDelCarrito(idCarrito, idProducto)
+        } else {
+            await cartManager.vaciarCarrito(idCarrito)
+        }
+        const resultado = await cartManager.mostrarCarritos(idCarrito)
+            return resultado
     }
 
-    async vaciarCarrito(idCarrito){
-        await cartManager.vaciarCarrito(idCarrito)
-    } 
 }
 
 export const cartService = new CartService()
