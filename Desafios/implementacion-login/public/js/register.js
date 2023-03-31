@@ -7,7 +7,8 @@ if (registerForm instanceof HTMLFormElement) {
         e.preventDefault()
         const user = {
             username : usernameInput.value,
-            password : passwordInput.value
+            password : passwordInput.value,
+            rol: "user"
         }
         fetch('/api/users', {
             method: 'POST',

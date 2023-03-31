@@ -1,3 +1,10 @@
+{{#if hayUsername}}
+<h1>Bienvenido {{user}} !</h1>
+<p>Rol : {{rol}}</p>
+
+<button id="btnLogout">Logout</button>
+{{/if}}
+
 <h1>Productos</h1>
 {{#if hayProductos}}
 {{#each productos.docs}}
@@ -26,3 +33,4 @@
 <script src="/socket.io/socket.io.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.7.7/handlebars.min.js"></script>
 <script src="/js/agregarAlCarrito.js"></script>
+<script src="/js/logout.js"></script>
