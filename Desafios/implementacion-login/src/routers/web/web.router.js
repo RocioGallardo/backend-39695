@@ -8,6 +8,9 @@ export const webRouter = Router()
 webRouter.use('/products', productosRouter)
 webRouter.use('/carts', cartRouter)
 
+webRouter.get('/', (req, res) =>{
+    res.redirect('/login')
+})
 
 webRouter.get('/chat', (req, res) => {
     res.render('chat', { title: 'Chat' })
