@@ -2,7 +2,6 @@ import passport from 'passport'
 import { Strategy } from 'passport-local'
 import userModel from "../dao/models/UserModel.js";
 import { Strategy as GithubStrategy } from 'passport-github2'
-import { githubCallbackUrl, githubClientSecret, githubClienteId } from '../config/auth.js'
 
 
 
