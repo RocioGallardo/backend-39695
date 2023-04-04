@@ -2,6 +2,7 @@ import passport from 'passport'
 import { Strategy } from 'passport-local'
 import userModel from "../dao/models/UserModel.js";
 import { Strategy as GithubStrategy } from 'passport-github2'
+import { validarQueSeanIguales } from '../utils/criptografia.js';
 
 
 
@@ -19,12 +20,13 @@ passport.use('login', new Strategy(async (username, password, done) => {
             return done(null, false, { message: 'Nombre de usuario o contraseña incorrectos.' })
         }
     }
-    if (password !== user.password) {
+    if (!validarQueSeanIguales(password, user.password))
         return done(null, false, { message: 'Nombre de usuario o contraseña incorrectos.' })
-    }
+
     delete user.password
     done(null, user)
 }))
+
 
 
 

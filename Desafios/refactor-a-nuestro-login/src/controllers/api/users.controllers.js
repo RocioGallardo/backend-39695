@@ -1,5 +1,5 @@
 import userModel from "../../dao/models/UserModel.js";
-// import { hashear } from "../../utils/criptografia.js";
+import { hashear } from "../../utils/criptografia.js";
 
 
 export async function postUserController(req, res, next) {
@@ -9,7 +9,7 @@ export async function postUserController(req, res, next) {
         if (exists) return res.status(422).json({ status: "error", error: "User already exists" })
         const user = {
             username,
-            password: password,
+            password: hashear(password),
             rol
         }
         await userModel.create(user)
