@@ -1,0 +1,39 @@
+<h1>{{#if isArray}}Detalles de los carritos
+    {{else}}Detalles del carrito{{/if}}</h1>
+
+{{#if isArray}}
+    {{#each cart}}
+        <h2>ID del carrito: {{this._id}}</h2>
+        <ul>
+            {{#each this.listProducts}}
+                <li>
+                    <p>ID del producto: {{this.productId._id}}</p>
+                    <p>Nombre del producto: {{this.productId.title}}</p>
+                    <p>Descripción del producto: {{this.productId.description}}</p>
+                    <p>Precio del producto: {{this.productId.price}}</p>
+                    <p>Imagen del producto: {{this.productId.thumbnail}}</p>
+                    <p>Código del producto: {{this.productId.code}}</p>
+                    <p>Stock del producto: {{this.productId.stock}}</p>
+                    <p>Cantidad: {{this.cantidad}}</p>
+                </li>
+            {{/each}}
+        </ul>
+    {{/each}}
+{{else}}
+    <h2>ID del carrito: {{cart._id}}</h2>
+    <ul>
+        {{#each cart.listProducts}}
+            <li>
+                <p>ID del producto: {{this.productId._id}}</p>
+                <p>Nombre del producto: {{this.productId.title}}</p>
+                <p>Descripción del producto: {{this.productId.description}}</p>
+                <p>Precio del producto: {{this.productId.price}}</p>
+                <p>Imagen del producto: {{this.productId.thumbnail}}</p>
+                <p>Código del producto: {{this.productId.code}}</p>
+                <p>Stock del producto: {{this.productId.stock}}</p>
+                <p>Cantidad: {{this.cantidad}}</p>
+            </li>
+        {{/each}}
+    </ul>
+{{/if}}
+
