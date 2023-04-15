@@ -3,14 +3,14 @@ import { cartPostController,
         cartPutController,
         cartsGetOneController, 
         cartsGetController,
-        cartsDeleteProductsController} from '../../controllers/api/cart.controllers.js'
+        cartsDeleteProductsController,
+        cartConUserPutController} from '../../controllers/api/cart.controllers.js'
 
 export const cartRouter = Router()
 
 // POST
 
 cartRouter.post('/', cartPostController) // crear carrito
-
 
 
 //PUT
@@ -20,7 +20,7 @@ cartRouter.put('/:cid', cartPutController) // cargar productos o modificar carri
 // listo     PUT api/carts/:cid/products/:pid deberá poder actualizar SÓLO la cantidad de ejemplares del producto por cualquier cantidad pasada desde req.body
 cartRouter.put('/:cid/products/:pid', cartPutController) // cargar productos o modificar carrito
 
-
+cartRouter.put('/', cartConUserPutController)
 
 //GET
 

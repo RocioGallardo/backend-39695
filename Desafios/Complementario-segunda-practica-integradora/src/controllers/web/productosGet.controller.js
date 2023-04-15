@@ -33,11 +33,10 @@ export async function productsGetController(req, res, next) {
             .map(key => `${key}=${req.query[key]}`)
             .join('&');
 
-
         res.render('productos', {
-            hayUsername : !!req.session.user?.username,
-            user: req.session.user?.username,
-            rol: req.session.user?.rol,
+            hayUsername : !!req.user?.email,
+            user: req.user?.email,
+            rol: req.user?.rol,
             query: queryParams,
             productos: productos,
             hayProductos: productos.docs.length > 0,

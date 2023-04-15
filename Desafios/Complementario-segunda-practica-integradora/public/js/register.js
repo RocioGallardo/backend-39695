@@ -1,14 +1,20 @@
 const registerForm = document.getElementById('registerForm')
-const usernameInput = document.getElementById('inputUsernameRegister')
-const passwordInput = document.getElementById('inputPasswordRegister')
+const firstNameInput = document.getElementById('firstNameInput')
+const lastNameInput = document.getElementById('lastNameInput')
+const emailInput = document.getElementById('emailInput')
+const ageInput = document.getElementById('ageInput')
+const passwordInput = document.getElementById('passwordInput')
 
 if (registerForm instanceof HTMLFormElement) {
     registerForm.addEventListener('submit', e => {
         e.preventDefault()
         const user = {
-            username : usernameInput.value,
+            firstName : firstNameInput.value,
+            lastName : lastNameInput.value,
+            email : emailInput.value,
+            age : ageInput.value,
             password : passwordInput.value,
-            rol: "user"
+            rol : "user"
         }
         fetch('/api/users', {
             method: 'POST',

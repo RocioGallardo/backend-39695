@@ -1,12 +1,12 @@
 const btnForm = document.getElementById('btnForm')
-const usernameInput = document.getElementById('usernameInput')
+const emailInput = document.getElementById('emailInput')
 const passwordInput = document.getElementById('passwordInput')
 
 
     btnForm.addEventListener('click', e => {
         e.preventDefault()
         const obj = {
-            username: usernameInput.value,
+            email: emailInput.value,
             password: passwordInput.value
         };
         fetch('/api/sessions/', {

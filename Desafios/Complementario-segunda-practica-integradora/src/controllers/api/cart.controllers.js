@@ -23,6 +23,17 @@ export async function cartPutController(req, res, next) {
     }
 }
 
+export async function cartConUserPutController(req, res, next) {
+    try {
+        const { idProducto, cantidad} = req.body;
+        const datosCartACargar = new DatosCartACargar({idCarrito: req.user.cart, idProducto : idProducto, cantidad: cantidad});
+        const carritoActualizado = await cartService.actualizarCarrito(datosCartACargar);
+        res.status(200).json(carritoActualizado);
+    } catch (error) {
+        next(error);
+    }
+}
+
 
 export async function cartsGetOneController(req, res, next) {
     try {

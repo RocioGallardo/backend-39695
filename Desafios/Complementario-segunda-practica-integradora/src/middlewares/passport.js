@@ -7,12 +7,12 @@ import { validarQueSeanIguales } from '../utils/criptografia.js';
 
 
 
-passport.use('login', new Strategy(async (username, password, done) => {
-    const user = await userModel.findOne({ username })
+passport.use('login', new Strategy({usernameField: "email"}, async (email, password, done) => {
+    const user = await userModel.findOne({ email })
     if (!user) {
-        if (username === 'adminCoder@coder.com' && password === 'adminCod3r123') {
+        if (email === 'adminCoder@coder.com' && password === 'adminCod3r123') {
             const adminUser = {
-                username: username,
+                email: email,
                 rol: 'admin'
             }
             return done(null, adminUser)
@@ -29,17 +29,16 @@ passport.use('login', new Strategy(async (username, password, done) => {
 
 
 
-
 passport.use('github', new GithubStrategy({
-    clientID: "xx",
-    clientSecret: "xx",
+    clientID: "Iv1.51aa959c5613c89f",
+    clientSecret: "be09b67613ebefe2fb21a019beb6bc13983fcee6",
     callbackURL: "http://localhost:8080/api/sessions/githubcallback",
     scope: [ 'read:user' ]
 }, async (accessToken, refreshToken, profile, done) => {
     console.log(profile)
     let user
         user = {
-            username: profile.username,
+            email: profile.email ?? profile.username,
             rol: "user"
         }
         await userModel.create(user)
@@ -52,7 +51,11 @@ passport.use('github', new GithubStrategy({
 
 // esto lo tengo que agregar para que funcione passport! copiar y pegar, nada mas.
 passport.serializeUser((user, next) => { next(null, user) })
-passport.deserializeUser((user, next) => { next(null, user) })
+// passport.deserializeUser((user, next) => { next(null, user) })
+passport.deserializeUser((user, next) => {
+    const { password, ...userData } = user;
+    next(null, userData);
+});
 
 // estos son para cargar en express como middlewares a nivel aplicacion
 export const passportInitialize = passport.initialize()
