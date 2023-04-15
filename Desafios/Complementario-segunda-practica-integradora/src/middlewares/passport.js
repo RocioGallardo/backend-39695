@@ -30,8 +30,8 @@ passport.use('login', new Strategy({usernameField: "email"}, async (email, passw
 
 
 passport.use('github', new GithubStrategy({
-    clientID: "Iv1.51aa959c5613c89f",
-    clientSecret: "be09b67613ebefe2fb21a019beb6bc13983fcee6",
+    clientID: "",
+    clientSecret: "",
     callbackURL: "http://localhost:8080/api/sessions/githubcallback",
     scope: [ 'read:user' ]
 }, async (accessToken, refreshToken, profile, done) => {
