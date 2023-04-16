@@ -1,0 +1,41 @@
+<h1>Registro de pacientes</h1>
+<form id="pacientesRegisterForm">
+    <label for="input_dni">dni</label>
+    <input id="input_dni">
+
+    <label for="input_nombre">nombre</label>
+    <input id="input_nombre">
+
+    <label for="input_apellido">apellido</label>
+    <input id="input_apellido">
+
+    <label for="input_edad">edad</label>
+    <input id="input_edad">
+
+    <button type="submit">Enviar</button>
+</form>
+
+<h1>Pacientes</h1>
+{{#if hayPacientes }}
+<ul>
+    {{#each pacientes}}
+    <li>{{this.apellido}}, {{this.nombre}} ({{this.edad}} años, dni {{this.dni}})</li>
+    {{/each}}
+</ul>
+{{else}}
+no hay pacientes para mostrar
+{{/if}}
+
+<input type="button" {{#if hasPrevPage}} onclick="irAPag({{limit}}, {{prevPage}})" {{else}} disabled {{/if}}
+    value="Prev">
+[{{ page }}]
+<input type="button" {{#if hasNextPage}} onclick="irAPag({{limit}}, {{nextPage}})" {{else}} disabled {{/if}}
+    value="Next"><br>
+
+Página: <input id="input_pag_deseada" type="number" min="1"> <button onclick="irAPag({{limit}})">ir</button>
+
+<form id="logoutForm">
+    <button type="submit">Logout</button>
+</form>
+
+<script src="/js/pacientes.js"></script>

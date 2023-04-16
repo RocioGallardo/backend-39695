@@ -1,0 +1,1 @@
+export const COOKIE_SECRET = 'COOKIE_SECRET'
