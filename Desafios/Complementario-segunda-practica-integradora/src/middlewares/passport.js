@@ -22,7 +22,6 @@ passport.use('login', new Strategy({usernameField: "email"}, async (email, passw
     }
     if (!validarQueSeanIguales(password, user.password))
         return done(null, false, { message: 'Nombre de usuario o contraseña incorrectos.' })
-
     delete user.password
     done(null, user)
 }))
