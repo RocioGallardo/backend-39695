@@ -1,0 +1,22 @@
+{
+  "type": "module",
+  "name": "capas",
+  "version": "1.0.0",
+  "main": "src/main.js",
+  "scripts": {
+    "start": "node .",
+    "test": "nodemon ."
+  },
+  "keywords": [],
+  "author": "drmaquino",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "express": "latest",
+    "mongoose": "^7.0.4"
+  },
+  "devDependencies": {
+    "@types/express": "latest",
+    "nodemon": "latest"
+  }
+}
