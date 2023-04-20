@@ -32,21 +32,14 @@ export async function productsGetController(req, res, next) {
     }
 }
 
-
-
-
-// import { productosService } from '../../services/productos.service.js'
-
-// export async function productosGetController(req, res, next) {
-//         try {
-//             const productos = await productosService.listar()
-//             res.status(200).json(productos)
-//         } catch (error) {
-//             next(error)
-//         }
-// }
-
-
+export async function productsGetOneController(req, res, next) {
+    try {
+        const producto = await productosService.mostrarUnoSegunId(req.params.pid)
+        res.status(200).json(producto)
+        } catch (error) {
+            next(error)
+    }    
+}
 
 
 export async function productsPostController(req, res, next) {
@@ -59,15 +52,6 @@ export async function productsPostController(req, res, next) {
     }
 }
 
-
-export async function productsGetOneController(req, res, next) {
-    try {
-        const producto = await productosService.mostrarUnoSegunId(req.params.pid)
-        res.status(200).json(producto)
-        } catch (error) {
-            next(error)
-    }    
-}
 
 export async function productsPutController (req, res, next){
     try {
