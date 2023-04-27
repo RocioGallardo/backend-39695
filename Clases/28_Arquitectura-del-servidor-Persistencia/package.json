@@ -1,11 +1,22 @@
 {
-  "name": "28_arquitectura-del-servidor-persistencia",
+  "type": "module",
+  "name": "arquitectura2",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "main": "src/main.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node .",
+    "test": "nodemon ."
   },
-  "author": "",
-  "license": "ISC"
+  "keywords": [],
+  "author": "drmaquino",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "express": "latest",
+    "mongoose": "^7.0.5"
+  },
+  "devDependencies": {
+    "@types/express": "latest",
+    "nodemon": "latest"
+  }
 }
