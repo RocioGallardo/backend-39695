@@ -1,5 +1,5 @@
 import { Schema } from 'mongoose'
-import { ManagerCarrito } from '../managersDB/ManagerCarrito.js'
+import { ManagerCarrito } from '../ManagerCarrito.js'
 
 export const cartManager = new ManagerCarrito('carts', {
     listProducts: [{

@@ -1,4 +1,4 @@
-import { ManagerMongoose } from '../managersDB/ManagerMongoose.js'
+import { ManagerMongoose } from '../ManagerMongoose.js'
 
 export const messagesManager = new ManagerMongoose('messages', {
     alias: { type: String, required: true },

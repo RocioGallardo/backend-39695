@@ -1,5 +1,4 @@
-import { ManagerMongoose } from '../managersDB/ManagerMongoose.js'
-import mongoosePaginate from 'mongoose-paginate-v2';
+import { ManagerMongoose } from '../ManagerMongoose.js'
 
 export const productosManager = new ManagerMongoose('products', {
     title: { type: String, required: true },

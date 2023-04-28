@@ -1,4 +1,4 @@
-import { cartManager } from '../dao/models/CartManager.js'
+import { cartManager } from '../dao/mongo/models/CartManager.js'
 
 class CartService {
 

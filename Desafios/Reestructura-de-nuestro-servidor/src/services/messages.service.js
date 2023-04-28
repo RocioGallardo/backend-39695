@@ -1,4 +1,4 @@
-import { messagesManager } from "../dao/models/MessagesManager.js"
+import { messagesManager } from "../dao/mongo/models/MessagesManager.js"
 
 
 class MessagesService {

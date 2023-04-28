@@ -1,4 +1,4 @@
-import { productosManager } from '../dao/models/ProductosManager.js'
+import { productosManager } from '../dao/mongo/models/ProductosManager.js'
 
 class ProductosService {
     async registrar(DatosProductoACargar) {
