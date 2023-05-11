@@ -1,7 +1,9 @@
 import { Schema } from 'mongoose'
-import { ManagerCarrito } from '../ManagerCarrito.js'
+import { ManagerOrder } from '../ManagerOrder.js'
 
-export const cartManagerMongo = new ManagerCarrito('carts', {
+export const orderManagerMongo = new ManagerOrder('orders', {
+    code: { type: String, required: true },
+    purchase_dateTime: { type: String, required: true },
     listProducts: [{
         productId: {
             type: Schema.Types.ObjectId,
@@ -14,7 +16,8 @@ export const cartManagerMongo = new ManagerCarrito('carts', {
             required: true,
             min: 1
         }
-    }]
+    }],
+    amount: { type: Number, required: true },
+    purchaser : { type: String, required: true }
 })
-
 

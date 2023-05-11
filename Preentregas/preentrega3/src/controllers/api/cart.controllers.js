@@ -34,11 +34,27 @@ export async function cartConUserPutController(req, res, next) {
     }
 }
 
+export async function cartFinalizarCompra(req, res, next) {
+    try {
+        const cart = await cartService.mostrarCarritos(req.params.cid)
+        const productsCart = cart.listProducts.map( (product) => {
+            
+        })
+
+
+        const {idProducto, cantidad} = req.body;
+        const datosCartACargar = new DatosCartACargar({idCarrito: req.user.cart, idProducto : idProducto, cantidad: cantidad});
+        const carritoActualizado = await cartService.actualizarCarrito(datosCartACargar);
+        res.status(200).json(carritoActualizado);
+    } catch (error) {
+        next(error);
+    }
+}
 
 export async function cartsGetOneController(req, res, next) {
     try {
-        const carts = await cartService.mostrarCarritos(req.params.cid )
-        res.status(200).json(carts)
+        const cart = await cartService.mostrarCarritos(req.params.cid)
+        res.status(200).json(cart)
     } catch (error) {
         next(error)
     }

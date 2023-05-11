@@ -53,9 +53,7 @@ export class ManagerCarrito {
         if (index === -1) {
             throw new Error('Producto no encontrado en el carrito');
         }
-
         carrito.listProducts.splice(index, 1);
-
         await carrito.save();
         return carrito.listProducts;
     }
