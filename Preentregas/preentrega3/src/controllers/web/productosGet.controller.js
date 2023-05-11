@@ -1,7 +1,5 @@
 import { productService } from '../../repositories/index.js';
-import { productosService } from '../../services/productos.service.js'
-
-const paginaDeError = 'error al cargar, intente nuevamente...'
+//import { productosService } from '../../services/productos.service.js'
 
 export async function productsGetController(req, res, next) {
 

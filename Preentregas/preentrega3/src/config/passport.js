@@ -8,3 +8,4 @@ export const githubClientSecret = process.env.GITHUBCLIENTSECRET
 export const adminEmail = process.env.ADMIN_EMAIL
 export const adminPassword = process.env.ADMIN_PASSWORD
 
+

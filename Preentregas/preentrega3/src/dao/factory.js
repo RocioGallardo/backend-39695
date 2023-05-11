@@ -1,13 +1,20 @@
 import { persistenciaEnv } from "../config/config.js";
-import { productsManager } from "./mongo/models/ProductsManager.js";
+import { productsManagerMongo } from "./mongo/models/ProductsManager.js";
 import { productsManagerFile } from "./file/ProductManagerFs.js";
 
 export let persistence
 
+
 switch(persistenciaEnv){
     case "MONGO":
-        persistence = productsManager
+        persistence = productsManagerMongo
+            break;
     case "FILE":
         persistence = productsManagerFile
+            break;
+    default:
+    console.log("error al configurar persistencia")
+    break
 }
+
 

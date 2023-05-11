@@ -30,7 +30,7 @@ export default class ProductRepository{
         return producto
     }
     async mostrarPaginado(criterioDeBusqueda, opcionesDePaginacion){
-        const result = await persistence.paginar(criterioDeBusqueda, opcionesDePaginacion)
+        const result = await this.persistencia.paginar(criterioDeBusqueda, opcionesDePaginacion)
         return result
     }
 }

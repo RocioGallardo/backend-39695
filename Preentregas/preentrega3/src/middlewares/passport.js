@@ -1,6 +1,6 @@
 import passport from 'passport'
 import { Strategy } from 'passport-local'
-import userModel from "../dao/models/UserModel.js";
+import userModel from "../dao/mongo/models/UserModel.js";
 import { Strategy as GithubStrategy } from 'passport-github2'
 import { validarQueSeanIguales } from '../utils/criptografia.js';
 import { adminEmail, adminPassword, githubCallbackUrl, githubClientId, githubClientSecret } from '../config/passport.js';

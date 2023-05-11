@@ -1,5 +1,6 @@
 export function getCurrentSessionController(req, res, next) {
     res.json(req.user)
+    
 }
 
 export async function logoutSessionsController(req, res, next) {

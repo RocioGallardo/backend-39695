@@ -1,6 +1,6 @@
-import Product from "../models/Product.js";
+import Product from "./models/Product.js";
 import { readFile, writeFile } from "fs/promises";
-class ProductManager {
+class ProductManagerFS {
     _products
     _path
     constructor(_path) {
@@ -96,6 +96,6 @@ class ProductManager {
     }
 
 }
-const productsManagerFile = new ProductManager("./src/database/products.json")
+const productsManagerFile = new ProductManagerFS("./src/database/products.json")
 
 export {productsManagerFile};

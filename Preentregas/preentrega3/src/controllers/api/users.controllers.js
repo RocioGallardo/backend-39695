@@ -1,11 +1,11 @@
-import userModel from "../../dao/models/UserModel.js";
+import userModel from "../../dao/mongo/models/UserModel.js";
 import { cartService } from "../../services/cart.service.js";
 import { hashear } from "../../utils/criptografia.js";
 
 
 export async function postUserController(req, res, next) {
     try {
-        const { firstName, lastName, email, age, password, cart, rol } = req.body
+        const { firstName, lastName, email, age, password, rol } = req.body
         const exists = await userModel.findOne({ email })
         const idCartId = await cartService.crearCarrito()
         if (exists) return res.status(422).json({ status: "error", error: "User already exists" })

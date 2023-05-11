@@ -1,4 +1,4 @@
-import { productosService } from '../../services/productos.service.js'
+//import { productosService } from '../../services/productos.service.js'
 import { DatosProductoACargar } from '../../models/DatosProductoACargar.js'
 import { productService } from '../../repositories/index.js';
 

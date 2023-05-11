@@ -1,4 +1,4 @@
-import Cart from "../models/Cart.js";
+import Cart from "./models/Cart.js";
 import { readFile, writeFile } from "fs/promises";
 class CartManager {
     _carts
