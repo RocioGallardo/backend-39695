@@ -14,26 +14,14 @@ export class ManagerOrder {
         return orden._id.toString();
     }
 
-    async mostrarOrden(id) {
+    async mostrarOrdersSegunPropiedad(data) {
         try {
-            if (id) {
-                const orden = await this.collection
-                    .findById(id)
-                    .populate('listProducts.productId')
-                    .lean();
-                return orden;
-            } else {
-                const ordenes = await this.collection
-                    .find({})
-                    .populate('listProducts.productId')
-                    .lean();
-                return ordenes;
-            }
+            const ordenesEncontradas = await this.collection.find(data).lean();
+            return ordenesEncontradas;
         } catch (error) {
             console.log(`Error en la consulta: ${error}`);
             throw error;
         }
     }
-
 
 }

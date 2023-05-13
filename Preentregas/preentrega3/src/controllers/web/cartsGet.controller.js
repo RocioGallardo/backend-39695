@@ -6,9 +6,12 @@ export async function cartsGetController(req, res, next) {
         const carts = await cartRepository.mostrarCarritos(criterioDeBusqueda);
         const isArray = Array.isArray(carts); // Verifica si carts es un array o no
         res.render('carts', {
+            esUser: req.user.rol == "user" ? true : false,
             isArray: isArray,
             cart: carts,
-            titulo: 'Carts'
+            titulo: 'Carts',
+            loggedIn: true,
+            cartId: req.user.cart
         });
     } catch (error) {
         res.send('error:' + JSON.stringify(error));

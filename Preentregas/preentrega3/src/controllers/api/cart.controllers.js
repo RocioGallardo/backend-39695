@@ -1,5 +1,5 @@
 import { DatosCartACargar } from '../../models/DatosCartACargar.js'
-import { cartRepository } from '../../repositories/index.js'
+import { cartRepository, orderRepository } from '../../repositories/index.js'
 import { checkoutService } from '../../services/checkout.service.js'
 
 
@@ -40,13 +40,23 @@ export async function cartFinalizarCompra(req, res, next) {
     try {
         const cart = await cartRepository.mostrarCarritos(req.params.cid)
         const finalizar = await checkoutService.finalizarCompra(cart._id, cart.listProducts)
-        // console.log(finalizar.order)
-        // console.log(finalizar.cart)
         res.status(200).json(finalizar);
     } catch (error) {
         next(error);
     }
 }
+
+export async function cartMostrarOrders(req, res, next) {
+    try {
+        console.log()
+        const orders = await orderRepository.mostrarOrdersSegunPropiedad({purchaser : req.user[0].email})
+        res.status(200).json(orders);
+    } catch (error) {
+        next(error);
+    }
+}
+
+
 
 export async function cartsGetOneController(req, res, next) {
     try {

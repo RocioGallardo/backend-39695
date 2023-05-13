@@ -10,8 +10,8 @@ export default class OrderRepository {
         return order
     }
 
-    async mostrarOrders(id){
-        const resultado = await this.persistencia.mostrarOrders(id)
+    async mostrarOrdersSegunPropiedad(data){
+        const resultado = await this.persistencia.mostrarOrdersSegunPropiedad(data)
         return resultado
     }
 

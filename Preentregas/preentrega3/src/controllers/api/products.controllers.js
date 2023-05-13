@@ -45,14 +45,14 @@ export async function productsGetOneController(req, res, next) {
 
 
 export async function productsPostController(req, res, next) {
-    try {
+    // try {
+        console.log(req.body)
         const datosProductoACargar = new DatosProductoACargar(req.body)
-        // const productoRegistrado = await productosService.registrar(datosProductoACargar)
         const productoRegistrado = await productRepository.registrar(datosProductoACargar)
         res.status(201).json(productoRegistrado)
-    } catch (error) {
-        next(error)
-    }
+    // } catch (error) {
+    //     next(error)
+    // }
 }
 
 

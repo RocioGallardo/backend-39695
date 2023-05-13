@@ -7,10 +7,12 @@ import {
         productsPostController,
         productsPutController
 } from '../../controllers/api/products.controllers.js'
+import { autenticacion } from '../../middlewares/autenticacion.js'
+import { auth } from '../../middlewares/auth.js'
 
 export const productosRouter = Router()
 
-productosRouter.post('/', productsPostController) // guardar producto
+productosRouter.post('/', autenticacion, auth(["admin"]), productsPostController) // guardar producto
 
 
 productosRouter.put('/:pid', productsPutController)

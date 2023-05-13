@@ -10,21 +10,38 @@ export class ManagerCarrito {
         return carrito._id.toString();
     }
 
+    // async mostrarCarritos(id) {
+    //     try {
+    //         if (id) {
+    //             const carrito = await this.collection
+    //                 .findById(id)
+    //                 .populate('listProducts.productId')
+    //                 .lean();
+    //             return carrito;
+    //         } else {
+    //             const carritos = await this.collection
+    //                 .find({})
+    //                 .populate('listProducts.productId')
+    //                 .lean();
+    //             return carritos;
+    //         }
+    //     } catch (error) {
+    //         console.log(`Error en la consulta: ${error}`);
+    //         throw error;
+    //     }
+    // }
+
     async mostrarCarritos(id) {
         try {
-            if (id) {
-                const carrito = await this.collection
-                    .findById(id)
-                    .populate('listProducts.productId')
-                    .lean();
-                return carrito;
-            } else {
-                const carritos = await this.collection
-                    .find({})
-                    .populate('listProducts.productId')
-                    .lean();
-                return carritos;
+            let query = {};
+            if (id && Object.keys(id).length !== 0) {
+                query = { _id: id };
             }
+            const carritos = await this.collection
+                .find(query)
+                .populate('listProducts.productId')
+                .lean();
+            return carritos;
         } catch (error) {
             console.log(`Error en la consulta: ${error}`);
             throw error;

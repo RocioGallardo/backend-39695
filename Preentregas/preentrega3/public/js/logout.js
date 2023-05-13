@@ -1,7 +1,7 @@
-const btnLogout = document.getElementById('btnLogout')
+const aLogout = document.getElementById('aLogout')
 
 
-btnLogout?.addEventListener('click', e => {
+aLogout?.addEventListener('click', e => {
 
     fetch('/api/sessions/logout', {
     method: 'GET',

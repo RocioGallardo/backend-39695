@@ -18,4 +18,4 @@ sessionsRouter.get('/githubcallback', autenticacionPorGithub_CB, (req, res, next
 sessionsRouter.get('/logout', logoutSessionsController)
 
 // datos de sesion, para testear!
-sessionsRouter.get('/current',autenticacion, auth(["admin"]), getCurrentSessionController)
+sessionsRouter.get('/current',autenticacion, auth(["admin","user"]), getCurrentSessionController)

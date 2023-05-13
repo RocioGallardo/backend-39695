@@ -5,8 +5,9 @@ import { cartPostController,
         cartsGetController,
         cartsDeleteProductsController,
         cartConUserPutController,
-        cartFinalizarCompra} from '../../controllers/api/cart.controllers.js'
-
+        cartFinalizarCompra,
+        cartMostrarOrders} from '../../controllers/api/cart.controllers.js'
+import {autenticacion} from '../../middlewares/autenticacion.js'
 export const cartRouter = Router()
 
 // POST
@@ -24,7 +25,11 @@ cartRouter.put('/:cid/products/:pid', cartPutController) // cargar productos o m
 cartRouter.put('/', cartConUserPutController)
 
 // Implementar, en el router de carts, la ruta /:cid/purchase, la cual permitirá finalizar el proceso de compra de dicho carrito.
-cartRouter.get('/:cid/purchase', cartFinalizarCompra)
+cartRouter.post('/:cid/purchase', cartFinalizarCompra)
+cartRouter.get('/:cid/purchase',autenticacion ,cartMostrarOrders)
+
+
+
 //GET
 
 // listo      Modificar la ruta /:cid para que al traer todos los productos, los traiga completos mediante un “populate”. De esta manera almacenamos sólo el Id, pero al solicitarlo podemos desglosar los productos asociados.

@@ -29,15 +29,33 @@ export async function productsGetController(req, res, next) {
             .filter(key => key !== 'page') // excluimos la propiedad "page"
             .map(key => `${key}=${req.query[key]}`)
             .join('&');
-
+            
         res.render('productos', {
-            hayUsername : !!req.user?.email,
+            esUser: req.user.rol == "user" ? true : false,
             user: req.user?.email,
             rol: req.user?.rol,
             query: queryParams,
             productos: productos,
             hayProductos: productos.docs.length > 0,
-            titulo: 'Productos'
+            titulo: 'Productos',
+            loggedIn: true,
+            cartId: req.user.cart
+            
+        })
+    } catch (error) {
+        next(error)
+    }
+}
+
+export async function crearProductsGetController(req, res, next) {
+    try {
+        
+        res.render('crearProductos', {
+            esUser: req.user.rol == "user" ? true : false,
+            user: req.user?.email,
+            rol: req.user?.rol,
+            titulo: 'Crear Productos',
+            loggedIn: true,
         })
     } catch (error) {
         next(error)

@@ -1,6 +1,8 @@
 import { Router } from 'express'
 import { cartRouter } from './cart.router.js'
 import { productosRouter } from './productos.router.js'
+import { auth } from '../../middlewares/auth.js'
+import { chatController } from '../../controllers/web/chatController.js'
 
 
 export const webRouter = Router()
@@ -12,9 +14,7 @@ webRouter.get('/', (req, res) =>{
     res.redirect('/login')
 })
 
-webRouter.get('/chat', (req, res) => {
-    res.render('chat', { title: 'Chat' })
-})
+webRouter.get('/chat', auth(["user"]), chatController)
 
 webRouter.get('/register', (req, res) =>{
     res.render('register', {title: "Registrarse"})
@@ -22,7 +22,13 @@ webRouter.get('/register', (req, res) =>{
 
 
 webRouter.get('/login', (req, res) => {
-    res.render('login', {title: "Login"} )
+    let loggedIn
+    if(req.user){
+        loggedIn =  true
+    } else {
+        loggedIn = false }
+
+    res.render('login', {title: "Login", loggedIn: loggedIn} )
 })
 
 
