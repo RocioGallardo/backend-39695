@@ -1,11 +1,9 @@
-import { cartService } from '../../services/cart.service.js'
-
-
+import { cartRepository } from '../../repositories/index.js'
 
 export async function cartsGetController(req, res, next) {
     try {
         const criterioDeBusqueda = req.params.cid || {};
-        const carts = await cartService.mostrarCarritos(criterioDeBusqueda);
+        const carts = await cartRepository.mostrarCarritos(criterioDeBusqueda);
         const isArray = Array.isArray(carts); // Verifica si carts es un array o no
         res.render('carts', {
             isArray: isArray,

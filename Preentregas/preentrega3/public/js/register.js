@@ -23,11 +23,11 @@ if (registerForm instanceof HTMLFormElement) {
                 'Content-Type': 'application/json'
             }
         })
-            .then(result => {
-                if (result.status === 201) {
-                    window.location.replace('/login')
-                }
-            })
+        .then(result => {
+            if (result.status === 201) {
+                window.location.replace('/login')
+            }
+        })
     })
 }
 

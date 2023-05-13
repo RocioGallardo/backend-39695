@@ -1,7 +1,5 @@
-import { productService } from '../../repositories/index.js';
-import { productosService } from '../../services/productos.service.js'
+import { productRepository } from '../../repositories/index.js';
 
-const paginaDeError = 'error al cargar, intente nuevamente...'
 
 export async function productsGetController(req, res, next) {
 
@@ -25,7 +23,7 @@ export async function productsGetController(req, res, next) {
         }
         
         // const productos = await productosService.mostrarPaginado(criterioDeBusqueda, opcionesDePaginacion)
-        const productos = await productService.mostrarPaginado(criterioDeBusqueda, opcionesDePaginacion)
+        const productos = await productRepository.mostrarPaginado(criterioDeBusqueda, opcionesDePaginacion)
         
         const queryParams = Object.keys(req.query)
             .filter(key => key !== 'page') // excluimos la propiedad "page"

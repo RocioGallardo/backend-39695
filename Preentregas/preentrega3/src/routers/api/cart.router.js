@@ -24,7 +24,7 @@ cartRouter.put('/:cid/products/:pid', cartPutController) // cargar productos o m
 cartRouter.put('/', cartConUserPutController)
 
 // Implementar, en el router de carts, la ruta /:cid/purchase, la cual permitirá finalizar el proceso de compra de dicho carrito.
-cartRouter.put('/:cid/purchase', cartFinalizarCompra)
+cartRouter.get('/:cid/purchase', cartFinalizarCompra)
 //GET
 
 // listo      Modificar la ruta /:cid para que al traer todos los productos, los traiga completos mediante un “populate”. De esta manera almacenamos sólo el Id, pero al solicitarlo podemos desglosar los productos asociados.

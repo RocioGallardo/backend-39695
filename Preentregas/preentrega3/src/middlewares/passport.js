@@ -1,15 +1,15 @@
 import passport from 'passport'
 import { Strategy } from 'passport-local'
-import userModel from "../dao/mongo/models/UserModel.js";
 import { Strategy as GithubStrategy } from 'passport-github2'
 import { validarQueSeanIguales } from '../utils/criptografia.js';
 import { adminEmail, adminPassword, githubCallbackUrl, githubClientId, githubClientSecret } from '../config/passport.js';
+import { userRepository } from '../repositories/index.js';
 
 
 
 
 passport.use('login', new Strategy({usernameField: "email"}, async (email, password, done) => {
-    const user = await userModel.findOne({ email })
+    const user = await userRepository.obtenerPorPropiedad({ email })
     if (!user) {
         if (email === adminEmail && password === adminPassword) {
             const adminUser = {
@@ -21,7 +21,7 @@ passport.use('login', new Strategy({usernameField: "email"}, async (email, passw
             return done(null, false, { message: 'Nombre de usuario o contraseña incorrectos.' })
         }
     }
-    if (!validarQueSeanIguales(password, user.password))
+    if (!validarQueSeanIguales(password, user[0]["password"]))
         return done(null, false, { message: 'Nombre de usuario o contraseña incorrectos.' })
     delete user.password
     done(null, user)
@@ -35,13 +35,13 @@ passport.use('github', new GithubStrategy({
     callbackURL: githubCallbackUrl,
     scope: [ 'read:user' ]
 }, async (accessToken, refreshToken, profile, done) => {
-    console.log(profile)
+    //console.log(profile)
     let user
         user = {
             email: profile.email ?? profile.username,
             rol: "user"
         }
-        await userModel.create(user)
+        await userRepository.crear(user)
     done(null, user)
 }))
 

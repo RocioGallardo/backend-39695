@@ -46,17 +46,30 @@ export class ManagerCarrito {
         return carrito.listProducts;
     }
 
-    async eliminarProductoDelCarrito(idCarrito, idProducto) {
-        const carrito = await this.collection.findById(idCarrito);
-        const index = carrito.listProducts.findIndex(item => item.productId == idProducto);
 
-        if (index === -1) {
-            throw new Error('Producto no encontrado en el carrito');
+    async eliminarProductosDelCarrito(idCarrito, idsProductos) {
+        const carrito = await this.collection.findById(idCarrito);
+        if (!carrito) {
+            throw new Error('Carrito no encontrado');
         }
-        carrito.listProducts.splice(index, 1);
+
+        console.log("manager carrito");
+        console.log(idsProductos);
+
+        const listProducts = carrito.listProducts;
+
+        for (let i = 0; i < idsProductos.length; i++) {
+            const idProducto = idsProductos[i];
+            const index = listProducts.findIndex(producto => producto.productId.toString() === idProducto.toString());
+            if (index !== -1) {
+                listProducts.splice(index, 1);
+            }
+        }
+
         await carrito.save();
-        return carrito.listProducts;
+        return listProducts;
     }
+
 
     async vaciarCarrito(idCarrito) {
         const carrito = await this.collection.findById(idCarrito);

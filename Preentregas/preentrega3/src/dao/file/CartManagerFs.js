@@ -38,7 +38,7 @@ class CartManager {
         try {
             const data = await readFile(this._path, 'utf-8')
             this._carts = JSON.parse(data)
-            //console.log(this._carts[1])
+            
             const _cart = this._carts.find(_cart => _cart.id === cid)
             const newValues = this._carts.find(_cart => _cart.id === cid)
             if(_cart.products.find(product => product.id === pid)){

@@ -1,6 +1,6 @@
 //import { productosService } from '../../services/productos.service.js'
 import { DatosProductoACargar } from '../../models/DatosProductoACargar.js'
-import { productService } from '../../repositories/index.js';
+import { productRepository } from '../../repositories/index.js';
 
 export async function productsGetController(req, res, next) {
 
@@ -26,7 +26,7 @@ export async function productsGetController(req, res, next) {
             opcionesDePaginacion.sort = { price: -1 };
         }
         // const productos = await productosService.mostrarPaginado(criterioDeBusqueda, opcionesDePaginacion)
-        const productos = await productService.mostrarPaginado(criterioDeBusqueda, opcionesDePaginacion)
+        const productos = await productRepository.mostrarPaginado(criterioDeBusqueda, opcionesDePaginacion)
         res.status(200).json(productos)
     } catch (error) {
         next(error)
@@ -36,7 +36,7 @@ export async function productsGetController(req, res, next) {
 export async function productsGetOneController(req, res, next) {
     try {
         // const producto = await productosService.mostrarUnoSegunId(req.params.pid)
-        const producto = await productService.mostrarUnoSegunId(req.params.pid)
+        const producto = await productRepository.mostrarUnoSegunId(req.params.pid)
         res.status(200).json(producto)
         } catch (error) {
             next(error)
@@ -48,7 +48,7 @@ export async function productsPostController(req, res, next) {
     try {
         const datosProductoACargar = new DatosProductoACargar(req.body)
         // const productoRegistrado = await productosService.registrar(datosProductoACargar)
-        const productoRegistrado = await productService.registrar(datosProductoACargar)
+        const productoRegistrado = await productRepository.registrar(datosProductoACargar)
         res.status(201).json(productoRegistrado)
     } catch (error) {
         next(error)
@@ -61,7 +61,7 @@ export async function productsPutController (req, res, next){
         const idProducto = req.params.pid
         const datosAActualizar = req.body
         // const productoActualizado = await productosService.actualizarPorId(idProducto, datosAActualizar)
-        const productoActualizado = await productService.actualizarPorId(idProducto, datosAActualizar)
+        const productoActualizado = await productRepository.actualizarPorId(idProducto, datosAActualizar)
         res.status(200).json(productoActualizado)
         } catch (error) {
             next(error)

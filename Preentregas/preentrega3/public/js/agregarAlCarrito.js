@@ -9,7 +9,7 @@ btnAgregarAlCarrito.forEach((btn) => {
         const datosACargar = {
             idProducto: btn.getAttribute('data-product-id'),
             cantidad: 1
-        };
+        }
         try {
             const response = await fetch('/api/carts', {
                 method: 'PUT',
@@ -17,7 +17,8 @@ btnAgregarAlCarrito.forEach((btn) => {
                 headers: {
                     'Content-Type': 'application/json'
                 }
-            });
+            })
+            
             if (response.ok) {
                 socket.emit('agregarAlCarrito', datosACargar);
             } else {

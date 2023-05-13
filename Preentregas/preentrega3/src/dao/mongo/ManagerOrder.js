@@ -5,8 +5,8 @@ export class ManagerOrder {
         this.collection = mongoose.model(nombreColeccion, new mongoose.Schema(schema, { versionKey: false }));
     }
 
-    async crearOrden(registro) {
-        return await this.coleccion.create(registro);
+    async crearOrder(registro) {
+        return await this.collection.create(registro);
     }
 
     async crearOrden2() {
