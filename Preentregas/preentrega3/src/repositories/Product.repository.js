@@ -14,8 +14,8 @@ export default class ProductRepository{
         return product
     }
 
-    async registrar(datosProductoACargar) {
-        let productToInsert = new ProductDTO(datosProductoACargar)
+    async registrar(product) {
+        let productToInsert = new ProductDTO(product)
         const registred = await this.persistencia.guardar(productToInsert)
         return registred
     }
@@ -62,8 +62,9 @@ export default class ProductRepository{
                         cantidadRequerida: productoRequerido.cantidad,
                     })
                 } else {
-                    productoRequerido.productId.stock -= productoRequerido.cantidad;
-                    await this.persistencia.actualizarPorId(productoRequerido.productId._id, { stock: productoRequerido.productId.stock});
+
+                    const stockActualizado = productoRequerido.productId.stock -= productoRequerido.cantidad
+                    await this.persistencia.actualizarPorId(productoRequerido.productId._id, { stock: stockActualizado});
                     productosConStock.push({
                     id: productoRequerido.productId._id,
                     cantidadRequerida: productoRequerido.cantidad

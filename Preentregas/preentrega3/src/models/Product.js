@@ -14,7 +14,7 @@ function validarNumeroEntero(valor){
 }
 
 
-export class DatosProductoACargar {
+export class Product {
     constructor({ title, description, price, thumbnail, code, stock }) {
         this.title = validarString(title)
         this.description = validarString(description)

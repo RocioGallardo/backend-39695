@@ -1,4 +1,4 @@
-import { DatosCartACargar } from '../../models/DatosCartACargar.js'
+import { cart } from '../../models/Cart.js'
 import { cartRepository, orderRepository } from '../../repositories/index.js'
 import { checkoutService } from '../../services/checkout.service.js'
 
@@ -17,8 +17,8 @@ export async function cartPostController(req, res, next) {
 export async function cartPutController(req, res, next) {
     try {
         const idDelProducto = req.params.pid || req.body.idProducto
-        const datosCartACargar = new DatosCartACargar({idCarrito: req.params.cid, idProducto : idDelProducto, cantidad: req.body.cantidad})
-        const carritoActualizado = await cartRepository.actualizarCarrito(datosCartACargar)
+        const cart = new Cart({idCarrito: req.params.cid, idProducto : idDelProducto, cantidad: req.body.cantidad})
+        const carritoActualizado = await cartRepository.actualizarCarrito(cart)
         res.status(200).json(carritoActualizado)
     } catch (error) {
         next(error)
@@ -26,15 +26,14 @@ export async function cartPutController(req, res, next) {
 }
 
 export async function cartConUserPutController(req, res, next) {
-    // try {
-        
+    try {
         const {idProducto, cantidad} = req.body
-        const datosCartACargar = new DatosCartACargar({idCarrito: req.user.cart, idProducto : idProducto, cantidad: cantidad})
-        const carritoActualizado = await cartRepository.actualizarCarrito(datosCartACargar)
+        const cart = new Cart({idCarrito: req.user.cart, idProducto : idProducto, cantidad: cantidad})
+        const carritoActualizado = await cartRepository.actualizarCarrito(cart)
         res.status(200).json(carritoActualizado)
-    // } catch (error) {
-    //     next(error);
-    // }
+    } catch (error) {
+        next(error);
+    }
 }
 
 export async function cartFinalizarCompra(req, res, next) {

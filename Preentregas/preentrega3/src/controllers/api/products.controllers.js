@@ -1,5 +1,5 @@
 //import { productosService } from '../../services/productos.service.js'
-import { DatosProductoACargar } from '../../models/DatosProductoACargar.js'
+import { Product } from '../../models/Product.js'
 import { productRepository } from '../../repositories/index.js';
 
 export async function productsGetController(req, res, next) {
@@ -46,8 +46,8 @@ export async function productsGetOneController(req, res, next) {
 
 export async function productsPostController(req, res, next) {
     try {
-        const datosProductoACargar = new DatosProductoACargar(req.body)
-        const productoRegistrado = await productRepository.registrar(datosProductoACargar)
+        const product = new Product(req.body)
+        const productoRegistrado = await productRepository.registrar(product)
         res.status(201).json(productoRegistrado)
     } catch (error) {
         next(error)
