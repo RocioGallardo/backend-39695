@@ -70,8 +70,6 @@ export class ManagerCarrito {
             throw new Error('Carrito no encontrado');
         }
 
-        console.log("manager carrito");
-        console.log(idsProductos);
 
         const listProducts = carrito.listProducts;
 

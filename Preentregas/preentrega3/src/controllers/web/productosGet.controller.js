@@ -29,9 +29,10 @@ export async function productsGetController(req, res, next) {
             .filter(key => key !== 'page') // excluimos la propiedad "page"
             .map(key => `${key}=${req.query[key]}`)
             .join('&');
-            
+
         res.render('productos', {
             esUser: req.user.rol == "user" ? true : false,
+            esAdmin: req.user.rol == "admin" ? true : false,
             user: req.user?.email,
             rol: req.user?.rol,
             query: queryParams,
@@ -49,13 +50,32 @@ export async function productsGetController(req, res, next) {
 
 export async function crearProductsGetController(req, res, next) {
     try {
-        
+        console.log(req.user.rol == "admin" ? true : false)
         res.render('crearProductos', {
             esUser: req.user.rol == "user" ? true : false,
+            esAdmin: req.user.rol == "admin" ? true : false,
             user: req.user?.email,
             rol: req.user?.rol,
             titulo: 'Crear Productos',
             loggedIn: true,
+        })
+    } catch (error) {
+        next(error)
+    }
+}
+
+export async function editarProductsGetController(req, res, next) {
+    try {
+        const idProduct = req.params.pid
+        const product = await productRepository.mostrarUnoSegunId(idProduct)
+        res.render('editProducts', {
+            esUser: req.user.rol == "user" ? true : false,
+            esAdmin: req.user.rol == "admin" ? true : false,
+            user: req.user?.email,
+            rol: req.user?.rol,
+            titulo: 'Editat Productos',
+            loggedIn: true,
+            product: product
         })
     } catch (error) {
         next(error)

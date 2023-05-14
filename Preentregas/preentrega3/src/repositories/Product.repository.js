@@ -54,7 +54,6 @@ export default class ProductRepository{
     async verificarStock(productosRequeridos) {
         let productosConStock = [];
         let productosSinStock = [];
-        // console.log(productosRequeridos)
         for (let i = 0; i < productosRequeridos.length; i++) {
             const productoRequerido = productosRequeridos[i];
             if (productoRequerido.productId.stock < productoRequerido.cantidad) {

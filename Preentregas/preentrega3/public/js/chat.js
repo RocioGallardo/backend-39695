@@ -11,7 +11,7 @@ document.getElementById('btnNuevoMsg')?.addEventListener('click', ev => {
     }
 })
 
-document.getElementById('btnBorrarMsg')?.addEventListener('click', ev => {
+document.getElementById('btnBorrarMsg')?.addEventListener('click', () => {
     socket.emit('borrarMensajes')
 })
 

@@ -24,12 +24,9 @@ class CheckoutService {
     async generarTicket(idCarrito, productList) {
         const stock = await this.corroborarStock(productList)
         if(stock.productosConStock){
-            //calcularPrecioTotal
             const precioTotal = await this.calcularPrecioTotal(stock.productosConStock)
-            // averiguar email
             const user = await userRepository.obtenerPorPropiedad("cart", idCarrito)
             const emailUser = user[0].email
-            // generar ticket
             const ticket = new Ticket(precioTotal, emailUser)
             const order = await orderRepository.crearOrder(ticket)
             return order
@@ -40,7 +37,6 @@ class CheckoutService {
 
         if(stock.productosConStock){
             const idProductosAEliminar = stock.productosConStock.map(product => product.id.toString());
-            // const idProductosAEliminar = stock.productosConStock.map(product => product.id)
             const actualizado = await cartRepository.eliminarProductos(idCarrito, idProductosAEliminar)
             return actualizado
         }
@@ -48,7 +44,7 @@ class CheckoutService {
     
     async finalizarCompra(idCarrito, productList) {
         const order = await this.generarTicket(idCarrito, productList)
-        await this.actualizarCarrito(idCarrito, productList)
+        await this.actualizarCarrito(idCarrito.toString(), productList)
         return order
     }
 }

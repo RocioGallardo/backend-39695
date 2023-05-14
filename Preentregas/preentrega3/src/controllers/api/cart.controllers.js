@@ -26,30 +26,30 @@ export async function cartPutController(req, res, next) {
 }
 
 export async function cartConUserPutController(req, res, next) {
-    try {
+    // try {
+        
         const {idProducto, cantidad} = req.body
-        const datosCartACargar = new DatosCartACargar({idCarrito: req.user[0].cart, idProducto : idProducto, cantidad: cantidad})
+        const datosCartACargar = new DatosCartACargar({idCarrito: req.user.cart, idProducto : idProducto, cantidad: cantidad})
         const carritoActualizado = await cartRepository.actualizarCarrito(datosCartACargar)
         res.status(200).json(carritoActualizado)
-    } catch (error) {
-        next(error);
-    }
+    // } catch (error) {
+    //     next(error);
+    // }
 }
 
 export async function cartFinalizarCompra(req, res, next) {
-    try {
+    // try {
         const cart = await cartRepository.mostrarCarritos(req.params.cid)
-        const finalizar = await checkoutService.finalizarCompra(cart._id, cart.listProducts)
-        res.status(200).json(finalizar);
-    } catch (error) {
-        next(error);
-    }
+        const finalizar = await checkoutService.finalizarCompra(cart[0]._id, cart[0].listProducts)
+        res.status(201).json(finalizar);
+    // } catch (error) {
+    //     next(error);
+    // }
 }
 
 export async function cartMostrarOrders(req, res, next) {
     try {
-        console.log()
-        const orders = await orderRepository.mostrarOrdersSegunPropiedad({purchaser : req.user[0].email})
+        const orders = await orderRepository.mostrarOrdersSegunPropiedad({purchaser : req.user.email})
         res.status(200).json(orders);
     } catch (error) {
         next(error);

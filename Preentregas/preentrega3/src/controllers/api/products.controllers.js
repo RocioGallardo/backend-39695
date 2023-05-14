@@ -45,14 +45,13 @@ export async function productsGetOneController(req, res, next) {
 
 
 export async function productsPostController(req, res, next) {
-    // try {
-        console.log(req.body)
+    try {
         const datosProductoACargar = new DatosProductoACargar(req.body)
         const productoRegistrado = await productRepository.registrar(datosProductoACargar)
         res.status(201).json(productoRegistrado)
-    // } catch (error) {
-    //     next(error)
-    // }
+    } catch (error) {
+        next(error)
+    }
 }
 
 
@@ -60,9 +59,18 @@ export async function productsPutController (req, res, next){
     try {
         const idProducto = req.params.pid
         const datosAActualizar = req.body
-        // const productoActualizado = await productosService.actualizarPorId(idProducto, datosAActualizar)
         const productoActualizado = await productRepository.actualizarPorId(idProducto, datosAActualizar)
         res.status(200).json(productoActualizado)
+        } catch (error) {
+            next(error)
+    } 
+}
+
+export async function productsDeleteController (req, res, next){
+    try {
+        const idProducto = req.params.pid
+        await productRepository.eliminarUnoSegunId(idProducto)
+        res.status(200)
         } catch (error) {
             next(error)
     } 

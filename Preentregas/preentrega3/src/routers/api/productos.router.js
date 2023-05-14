@@ -2,6 +2,7 @@
 import { Router } from 'express'
 
 import {
+        productsDeleteController,
         productsGetController,
         productsGetOneController,
         productsPostController,
@@ -16,6 +17,7 @@ productosRouter.post('/', autenticacion, auth(["admin"]), productsPostController
 
 
 productosRouter.put('/:pid', productsPutController)
+productosRouter.delete('/:pid', productsDeleteController)
 
 
 
