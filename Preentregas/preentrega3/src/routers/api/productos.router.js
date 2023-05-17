@@ -16,8 +16,8 @@ export const productosRouter = Router()
 productosRouter.post('/', autenticacion, auth(["admin"]), productsPostController) // guardar producto
 
 
-productosRouter.put('/:pid', productsPutController)
-productosRouter.delete('/:pid', productsDeleteController)
+productosRouter.put('/:pid', autenticacion, auth(["admin"]),productsPutController)
+productosRouter.delete('/:pid',autenticacion, auth(["admin"]), productsDeleteController)
 
 
 
