@@ -1,4 +1,4 @@
-import { cart } from '../../models/Cart.js'
+import { Cart } from '../../models/Cart.js'
 import { cartRepository, orderRepository } from '../../repositories/index.js'
 import { checkoutService } from '../../services/checkout.service.js'
 
