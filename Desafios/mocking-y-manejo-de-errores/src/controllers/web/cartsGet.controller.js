@@ -1,9 +1,9 @@
 import { cartRepository } from '../../repositories/index.js'
 
-export async function cartsGetController(req, res, next) {
+export async function cartsGetController(req, res) {
     try {
-        const criterioDeBusqueda = req.params.cid || {};
-        const carts = await cartRepository.mostrarCarritos(criterioDeBusqueda);
+        const criterioDeBusqueda = {_id :req.params.cid} || {};
+        const carts = await cartRepository.showCart(criterioDeBusqueda);
         res.render('carts', {
             esUser: req.user.rol == "user" ? true : false,
             sonVarios: carts.length > 1 ? true : false ,

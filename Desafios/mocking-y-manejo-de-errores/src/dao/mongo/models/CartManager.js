@@ -1,7 +1,7 @@
 import { Schema } from 'mongoose'
-import { ManagerCarrito } from '../ManagerCarrito.js'
+import { ManagerMongoose } from '../ManagerMongooseUpdated.js'
 
-export const cartManagerMongo = new ManagerCarrito('carts', {
+export const cartManagerMongo = new ManagerMongoose('carts', {
     listProducts: [{
         productId: {
             type: Schema.Types.ObjectId,

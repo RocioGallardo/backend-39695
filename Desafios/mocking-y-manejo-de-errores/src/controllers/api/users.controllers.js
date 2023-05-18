@@ -3,18 +3,17 @@ import { hashear } from "../../utils/criptografia.js";
 
 export async function postUserController(req, res, next) {
     try {
-        
         const { firstName, lastName, email, age, password, rol } = req.body
         const exists = await userRepository.obtenerPorPropiedad("email", email)
         if (exists.length > 0) return res.status(422).json({ status: "error", error: "User already exists" })
-        const idCartId = await cartRepository.crearCarrito()
+        const CartId = await cartRepository.createCart()
         const user = {
             firstName,
             lastName,
             email,
             age,
             password: hashear(password),
-            cart: idCartId,
+            cart: CartId,
             rol
         }
         await userRepository.crear(user)
