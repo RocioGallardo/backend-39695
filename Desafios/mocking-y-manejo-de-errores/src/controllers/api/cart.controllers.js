@@ -36,13 +36,13 @@ export async function cartConUserPutController(req, res, next) {
 }
 
 export async function cartFinalizarCompra(req, res, next) {
-    try {
+    // try {
         const cart = await cartRepository.showCart({_id : req.params.cid})
         const finalizar = await checkoutService.finalizarCompra(cart[0]._id, cart[0].listProducts)
         res.status(201).json(finalizar);
-    } catch (error) {
-        next(error);
-    }
+    // } catch (error) {
+    //     next(error);
+    // }
 }
 
 export async function cartMostrarOrders(req, res, next) {

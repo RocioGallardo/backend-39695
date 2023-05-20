@@ -34,7 +34,7 @@ class ProductManagerFS {
             if(limit){
                 this._products = JSON.parse(await readFile(this._path, 'utf-8'))
                 const productsWithLimitQuery = this._products.slice(0, Number(limit))
-                console.log(productsWithLimitQuery)
+                //console.log(productsWithLimitQuery)
                 return (productsWithLimitQuery)
             }else{
                 this._products = await readFile(this._path, 'utf-8')

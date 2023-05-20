@@ -48,7 +48,7 @@ export async function productsGetController(req, res, next) {
 
 export async function crearProductsGetController(req, res, next) {
     try {
-        console.log(req.user.rol == "admin" ? true : false)
+        //console.log(req.user.rol == "admin" ? true : false)
         res.render('crearProductos', {
             esUser: req.user.rol == "user" ? true : false,
             esAdmin: req.user.rol == "admin" ? true : false,

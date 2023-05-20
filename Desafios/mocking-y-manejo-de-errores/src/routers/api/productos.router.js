@@ -14,10 +14,12 @@ import { auth } from '../../middlewares/auth.js'
 export const productosRouter = Router()
 
 productosRouter.post('/', autenticacion, auth(["admin"]), productsPostController) // guardar producto
+productosRouter.post('/mockingproducts', autenticacion, auth(["admin"]), )
 
 
 productosRouter.put('/:pid', autenticacion, auth(["admin"]),productsPutController)
 productosRouter.delete('/:pid',autenticacion, auth(["admin"]), productsDeleteController)
+
 
 
 

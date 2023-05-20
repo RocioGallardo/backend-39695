@@ -14,11 +14,11 @@ export class ManagerMongoose {
 
     async read(filter = {}) {
         if (typeof filter === 'object' && !Array.isArray(filter)) {
-            const result = await this.collection.findOne(filter).lean();
+            const result = await this.collection.findOne(filter)/*.populate('listProducts.productId')*/.lean();
             result._id = result._id.toString()
             return result;
         } else {
-            const results = await this.collection.find(filter).lean();
+            const results = await this.collection.find(filter)/*.populate('listProducts.productId')*/.lean();
             return results.map(result => {
                 result._id = result._id.toString()
                 return result
@@ -26,8 +26,26 @@ export class ManagerMongoose {
         }
     }
 
+    async readAndPopulate(filter = {}) {
+        if (typeof filter === 'object' && !Array.isArray(filter)) {
+            const result = await this.collection.findOne(filter).populate('listProducts.productId').lean();
+            if (result) {
+                result._id = result._id.toString();
+                return [result]; // Devolver un array con un solo elemento
+            } else {
+                return []; // Devolver un array vacío si no hay resultado
+            }
+        } else {
+            const results = await this.collection.find(filter).populate('listProducts.productId').lean();
+            return results.map(result => {
+                result._id = result._id.toString();
+                return result;
+            });
+        }
+    }
     async update(filter, updatedData) {
         const options = { new: true, upsert: false, multi: true };
+
         // EJEMPLO Actualizar un solo documento
         // const filter = { _id: 'documento_id' };
         // const updatedData = { name: 'John Doe', age: 30 };

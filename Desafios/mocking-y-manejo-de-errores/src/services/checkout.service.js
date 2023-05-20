@@ -4,38 +4,34 @@ import { cartRepository, orderRepository, productRepository, userRepository } fr
 
 
 class CheckoutService {
-    async corroborarStock(productlist) {
-        const resultado = await productRepository.verificarStock(productlist);
-        return resultado;
-    }
-    async calcularPrecioTotal(productosConStock) {
-        let precioTotal = 0;
-        for (const product of productosConStock) {
-            const productoEncontrado = await productRepository.mostrarUnoSegunId(product.id);
-            const precioTotalProducto = productoEncontrado.price * product.cantidadRequerida;
-            precioTotal += precioTotalProducto;
+
+    async calculateAmount(withStock) {
+        let amount = 0;
+        for (const product of withStock) {
+            const productFound = await productRepository.read({_id : product.id});
+            const totalByProduct = productFound.price * product.cantidad;
+            amount += totalByProduct;
         }
-        return precioTotal;
+        return amount;
     }
-async actualizarCarrito(idCarrito, stock) {
-        if(stock.productosConStock){
-            const idProductosAEliminar = stock.productosConStock.map(product => product.id.toString());
-            const actualizado = await cartRepository.eliminarProductos(idCarrito.toString(), idProductosAEliminar)
-            return actualizado
+    async updateCart(cartId, stock) {
+        if(stock.withStock){
+            const idToRemove = stock.withStock.map(product => product.id.toString());
+            return await cartRepository.removeProducts(cartId.toString(), idToRemove)
         }
     }
 
     async generarTicket(idCarrito, productList) {
-        const stock = await this.corroborarStock(productList)
-        if(stock.productosConStock){
+        const stock = await productRepository.checkStock(productList)
+        if(stock.withStock){
             // creo ticket
-            const precioTotal = await this.calcularPrecioTotal(stock.productosConStock)
-            const user = await userRepository.obtenerPorPropiedad("cart", idCarrito)
-            const emailUser = user[0].email
+            const precioTotal = await this.calculateAmount(stock.withStock)
+            const user = await userRepository.readByProperty({cart : idCarrito})
+            const emailUser = user.email
             const ticket = new Ticket(precioTotal, emailUser)
-            const order = await orderRepository.crearOrder(ticket)
+            const order = await orderRepository.createOrder(ticket)
             // actualizo carrito
-            this.actualizarCarrito(idCarrito, stock)
+            this.updateCart(idCarrito, stock)
             return order
         }
     }

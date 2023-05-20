@@ -1,7 +1,31 @@
+{{!-- <h1>{{#if sonVarios}}Detalles de los carritos{{else}}Detalles del carrito{{/if}}</h1>
+<h1>hola es este</h1>
+<h2>{{carts._id}}</h2>
+
+{{#each carts}}
+    <h2>ID del carrito: {{this._id}}</h2>
+    <ul>
+        {{#each this.listProducts}}
+            <li>
+                <p>ID del producto: {{this.productId}}</p>
+                <p>Cantidad: {{this.cantidad}}</p>
+            </li>
+        {{/each}}
+    </ul>
+{{/each}}
+
+<button id="finalizarCompra" data-cart-id="{{cartId}}">Realizar compra</button>
+<script src="/js/finalizarCompra.js"></script> --}}
+
+
+
+
+
 <h1>{{#if sonVarios}}Detalles de los carritos
     {{else}}Detalles del carrito{{/if}}</h1>
 
     {{#each carts}}
+    <h2>{{carts}}</h2>
         <h2>ID del carrito: {{this._id}}</h2>
         <ul>
             {{#each this.listProducts}}
@@ -21,4 +45,4 @@
 
 
 <button id="finalizarCompra" data-cart-id="{{cartId}}">Realizar compra</button>
-<script src="/js/finalizarCompra.js"></script>
+<script src="/js/finalizarCompra.js"></script> 

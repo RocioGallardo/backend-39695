@@ -41,7 +41,7 @@ export default class ProductRepository{
                     })
                 } else {
                     const updatedStock = product.productId.stock -= product.cantidad
-                    await this.persistence.update(productoRequerido.productId._id, { stock: updatedStock});
+                    await this.persistence.update(product.productId._id, { stock: updatedStock});
                     withStock.push({
                     id: product.productId._id,
                     cantidad: product.cantidad

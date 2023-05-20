@@ -12,7 +12,7 @@ export default class CartRepository {
     }
 
     async showCart(filter) {
-        return await this.persistence.read(filter).populate('listProducts.productId')
+        return await this.persistence.readAndPopulate(filter)
     }
 
     async updateCart(filter, updatedData) {
@@ -29,13 +29,13 @@ export default class CartRepository {
         }
 
         // Verificar si el producto ya está en el carrito
-        const existingProductIndex = cart.listProducts.findIndex(p => p.productId.toString() === _id);
+        const existingProductIndex = cart[0].listProducts.findIndex(p => p.productId.toString() === _id);
         if (existingProductIndex !== -1) {
             // El producto existe en el carrito, incrementar la cantidad
             cart.listProducts[existingProductIndex].cantidad += cant;
         } else {
             // El producto no existe en el carrito, agregarlo
-            cart.listProducts.push({
+            cart[0].listProducts.push({
                 productId: _id,
                 cantidad: cant
             });
@@ -43,29 +43,18 @@ export default class CartRepository {
 
         // Actualizar el carrito en la base de datos
         const filter = { _id: cartId };
-        const updatedData = { listProducts: cart.listProducts };
+        const updatedData = { listProducts: cart[0].listProducts };
         return await this.persistence.update(filter, updatedData);
     }
 
-
-    async removeProductsFromCart(cartId, productIds) {
-        try {
-            let updateData = {};
-
-            if (productIds && productIds.length > 0) {
-                // Construir el objeto $pull para eliminar los productos del array listProducts
-                updateData = { $pull: { listProducts: { _id: { $in: productIds } } } };
-            } else {
-                // Vaciar completamente el array listProducts
-                updateData = { $set: { listProducts: [] } };
-            }
-
-            // Actualizar el carrito en la base de datos utilizando la función update
-            const updatedCart = await this.update({ _id: cartId }, updateData);
-            return updatedCart;
-        } catch (error) {
-            console.error('Error al eliminar productos del carrito:', error);
-            throw new Error('Error al eliminar productos del carrito');
-        }
+    async removeProducts(idDelcarrito, productosAEliminar) {
+        // Buscar el carrito en la base de datos
+        const cart = await this.showCart({ _id: idDelcarrito });
+        // Filtrar los productos a eliminar del carrito
+        const updatedProducts = cart[0].listProducts.filter(product => !productosAEliminar.includes(product.productId._id.toString()));
+        // Actualizar el carrito con los productos actualizados
+        const updatedCart = await this.persistence.update({ _id: idDelcarrito }, { listProducts: updatedProducts });
+        return updatedCart;
     }
+
 }
