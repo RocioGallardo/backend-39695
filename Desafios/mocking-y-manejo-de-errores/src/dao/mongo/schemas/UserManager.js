@@ -1,6 +1,6 @@
-import { ManagerUser } from '../ManagerUser.js'
+import { ManagerMongoose } from '../ManagerMongoose.js'
 
-export const userManagerMongo = new ManagerUser('users', {
+export const userManagerMongo = new ManagerMongoose('users', {
     first_name: String,
     last_name: String,
     email: String,

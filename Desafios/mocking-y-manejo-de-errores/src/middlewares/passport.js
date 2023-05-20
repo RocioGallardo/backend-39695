@@ -8,7 +8,7 @@ import { userRepository } from '../repositories/index.js';
 
 
 passport.use('login', new Strategy({usernameField: "email"}, async (email, password, done) => {
-    const user = await userRepository.obtenerPorPropiedad("email", email)
+    const user = await userRepository.readByProperty({"email": email})
     if (user.length <= 0 ) {
         if (email === adminEmail && password === adminPassword) {
             const adminUser = {
@@ -20,10 +20,10 @@ passport.use('login', new Strategy({usernameField: "email"}, async (email, passw
             return done(null, false, { message: 'Nombre de usuario o contraseña incorrectos.' })
         }
     }
-    if (!validarQueSeanIguales(password, user[0]["password"]))
+    if (!validarQueSeanIguales(password, user["password"]))
         return done(null, false, { message: 'Nombre de usuario o contraseña incorrectos.' })
-    delete user[0].password
-    done(null, user[0])
+    delete user.password
+    done(null, user)
 }))
 
 

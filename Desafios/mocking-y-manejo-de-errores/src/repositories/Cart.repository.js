@@ -1,25 +1,27 @@
 
 export default class CartRepository {
-    constructor(persistencia) {
-        this.persistencia = persistencia
+    constructor(persistence) {
+        this.persistence = persistence
     }
 
     async createCart(record) {
-        const cart = await this.persistencia.create(record)
+        const cart = await this.persistence.create(record)
         //devuelvo solo el id
         const cartId = cart._id
         return cartId
     }
 
     async showCart(filter) {
-        return resultado = await this.persistencia.read(filter)
+        return await this.persistence.read(filter).populate('listProducts.productId')
     }
 
     async updateCart(filter, updatedData) {
-        await this.persistencia.update(filter, updatedData)
+        return await this.persistence.update(filter, updatedData)
     }
 
     async addProductToCart(cartId, product) {
+        const { _id, cant } = product;
+
         // Verificar si el carrito existe
         const cart = await this.showCart({ _id: cartId });
         if (!cart) {
@@ -27,30 +29,24 @@ export default class CartRepository {
         }
 
         // Verificar si el producto ya está en el carrito
-        const existingProduct = cart.listProducts.find(p => p.id === product.id);
-        if (existingProduct) {
-            // Si el producto ya existe, incrementar la cantidad
-            const filter = {
-                _id: cartId,
-                'listProducts._id': product.id
-            };
-            const updatedData = {
-                $inc: {
-                    'listProducts.$.cant': product.quantity
-                }
-            };
-            return await this.update(filter, updatedData);
+        const existingProductIndex = cart.listProducts.findIndex(p => p.productId.toString() === _id);
+        if (existingProductIndex !== -1) {
+            // El producto existe en el carrito, incrementar la cantidad
+            cart.listProducts[existingProductIndex].cantidad += cant;
         } else {
-            // Si el producto no existe, agregarlo al carrito
-            const filter = { _id: cartId };
-            const updatedData = {
-                $push: {
-                    listProducts: product
-                }
-            };
-            return await this.persistencia.update(filter, updatedData);
+            // El producto no existe en el carrito, agregarlo
+            cart.listProducts.push({
+                productId: _id,
+                cantidad: cant
+            });
         }
+
+        // Actualizar el carrito en la base de datos
+        const filter = { _id: cartId };
+        const updatedData = { listProducts: cart.listProducts };
+        return await this.persistence.update(filter, updatedData);
     }
+
 
     async removeProductsFromCart(cartId, productIds) {
         try {

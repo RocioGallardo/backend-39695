@@ -22,9 +22,8 @@ export async function productsGetController(req, res, next) {
             opcionesDePaginacion.sort = { price: -1 };
         }
         
-        // const productos = await productosService.mostrarPaginado(criterioDeBusqueda, opcionesDePaginacion)
-        const productos = await productRepository.mostrarPaginado(criterioDeBusqueda, opcionesDePaginacion)
-        
+        const productos = await productRepository.paginate(criterioDeBusqueda, opcionesDePaginacion)
+
         const queryParams = Object.keys(req.query)
             .filter(key => key !== 'page') // excluimos la propiedad "page"
             .map(key => `${key}=${req.query[key]}`)
@@ -41,7 +40,6 @@ export async function productsGetController(req, res, next) {
             titulo: 'Productos',
             loggedIn: true,
             cartId: req.user.cart
-            
         })
     } catch (error) {
         next(error)
@@ -67,7 +65,7 @@ export async function crearProductsGetController(req, res, next) {
 export async function editarProductsGetController(req, res, next) {
     try {
         const idProduct = req.params.pid
-        const product = await productRepository.mostrarUnoSegunId(idProduct)
+        const product = await productRepository.read(idProduct)
         res.render('editProducts', {
             esUser: req.user.rol == "user" ? true : false,
             esAdmin: req.user.rol == "admin" ? true : false,

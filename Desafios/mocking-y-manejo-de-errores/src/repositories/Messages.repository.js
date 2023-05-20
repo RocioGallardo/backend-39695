@@ -7,7 +7,7 @@ export default class MessagesRepository {
         await this.persistencia.guardar(mensaje)
     }
     async mostrarmensajes() {
-        const messages = await this.persistencia.obtenerTodos()
+        const messages = await this.persistencia.read()
         return messages
     }
     async vaciarChat(){

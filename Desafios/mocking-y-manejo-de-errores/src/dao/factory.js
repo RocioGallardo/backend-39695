@@ -1,10 +1,10 @@
 import { persistenciaEnv } from "../config/config.js";
-import { productsManagerMongo } from "./mongo/models/ProductsManager.js";
+import { productsManagerMongo } from "./mongo/schemas/ProductsManager.js";
 import { productsManagerFile } from "./file/ProductManagerFs.js";
-import { cartManagerMongo } from "./mongo/models/CartManager.js";
-import { orderManagerMongo } from "./mongo/models/OrderManager.js";
-import { messagesManagerMongo } from "./mongo/models/MessagesManager.js";
-import { userManagerMongo } from "./mongo/models/UserManager.js";
+import { cartManagerMongo } from "./mongo/schemas/CartManager.js";
+import { orderManagerMongo } from "./mongo/schemas/OrderManager.js";
+import { messagesManagerMongo } from "./mongo/schemas/MessagesManager.js";
+import { userManagerMongo } from "./mongo/schemas/UserManager.js";
 
 export let persistence
 

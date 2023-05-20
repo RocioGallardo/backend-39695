@@ -26,14 +26,13 @@ export async function cartPutController(req, res, next) {
 }
 
 export async function cartConUserPutController(req, res, next) {
-    try {
+    // try {
         const {idProducto, cantidad} = req.body
-        const cart = new Cart({idCarrito: req.user.cart, idProducto : idProducto, cantidad: cantidad})
-        const carritoActualizado = await cartRepository.actualizarCarrito(cart)
+        const carritoActualizado = await cartRepository.addProductToCart(req.user.cart, {_id : idProducto, cant: cantidad})
         res.status(200).json(carritoActualizado)
-    } catch (error) {
-        next(error);
-    }
+    // } catch (error) {
+    //     next(error);
+    // }
 }
 
 export async function cartFinalizarCompra(req, res, next) {

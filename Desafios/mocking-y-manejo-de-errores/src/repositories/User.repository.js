@@ -1,20 +1,19 @@
 import User from "../models/User.js";
 
 export default class UserRepository{
-    constructor(persistencia){
-        this.persistencia = persistencia
+    constructor(persistence){
+        this.persistence = persistence
     }
 
-    async crear(user) {
+    async create(user) {
         let productToInsert = new User(user)
-        const registred = await this.persistencia.crear(productToInsert)
-        return registred
+        return await this.persistence.create(productToInsert)
     }
 
-    async obtenerPorPropiedad(propiedad, valor){
-        const user = await this.persistencia.obtenerPorPropiedad(propiedad,valor)
-        return user
+    async readByProperty(filter){
+        return await this.persistence.read(filter)
     }
 
 }
+
 

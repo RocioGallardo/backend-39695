@@ -1,29 +1,18 @@
 
-
 export default class OrderRepository {
-    constructor(persistencia){
-        this.persistencia = persistencia
+    constructor(persistence){
+        this.persistence = persistence
     }
 
-    async crearOrder(data){
-        const order = await this.persistencia.crearOrder(data)
-        return order
+    async createOrder(data) {
+        return await this.persistence.create(data);
     }
-
-    async mostrarOrdersSegunPropiedad(data){
-        const resultado = await this.persistencia.mostrarOrdersSegunPropiedad(data)
-        return resultado
-    }
-
-    async actualizarOrder({idOrder, idProducto, cantidad}){
-        await this.persistencia.actualizarOrder(idOrder, idProducto, cantidad)
-    }
-
-
-    async eliminarOrder(idOrder){
-        await this.persistencia.vaciarCarrito(idOrder)
-        const resultado = await this.persistencia.mostrarOrders(idOrder)
-            return resultado
+    async mostrarOrdersSegunPropiedad(data) {
+        try {
+            return ordenesEncontradas = await this.persistence.read(data)
+        } catch (error) {
+            console.log(`Error en la consulta: ${error}`);
+        }
     }
 
 }

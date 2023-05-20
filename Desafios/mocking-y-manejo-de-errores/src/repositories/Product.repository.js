@@ -1,80 +1,56 @@
-import ProductDTO from "../dao/DTOs/product.dto.js";
+import { Product } from "../models/Product.js";
 
 export default class ProductRepository{
-    constructor(persistencia){
-        this.persistencia = persistencia
-    }
-    async listar(){
-        let products = await this.persistencia.obtenerTodos()
-        return products
-    }
-
-    async mostrarUnoSegunId(id){
-        const product = await this.persistencia.obtenerPorId(id)
-        return product
+    constructor(persistence){
+        this.persistence = persistence
     }
 
     async registrar(product) {
-        let productToInsert = new ProductDTO(product)
-        const registred = await this.persistencia.guardar(productToInsert)
-        return registred
+        let productToInsert = new Product(product)
+        return await this.persistence.create(productToInsert)
     }
 
-    async actualizarPorId(id, datosActualizados) {
-        const productoActualizado = await this.persistencia.actualizarPorId(id, datosActualizados)
-        return productoActualizado
+    async read(filter){
+        return await this.persistence.read(filter)
     }
 
-    async eliminarUnoSegunId(id){
-        const producto = await this.persistencia.eliminarPorId(id)
-        return producto
+    async update(filter, updatedData){
+        return await this.persistence.update(filter, updatedData)
     }
-    async mostrarPaginado(criterioDeBusqueda, opcionesDePaginacion){
-        const result = await this.persistencia.paginar(criterioDeBusqueda, opcionesDePaginacion)
-        return result
-    }
-    // async verificarStock(productosRequeridos) {
-    //     let productosSinStock = [];
-    
-    //     for (let i = 0; i < productosRequeridos.length; i++) {
-    //         const productoRequerido = productosRequeridos[i];
-    //         const producto = await this.persistencia.obtenerPorId(productoRequerido.id);
-    
-    //         if (!producto || producto.stock < productoRequerido.cantidad) {
-    //             productosSinStock.push(productoRequerido);
-    //         } else {
-    //             producto.stock -= productoRequerido.cantidad;
-    //             await this.persistencia.actualizarPorId(producto._id, { stock: producto.stock });
-    //         }
-    //     }
-    
-    //     return productosSinStock;
-    // }
 
-    async verificarStock(productosRequeridos) {
-        let productosConStock = [];
-        let productosSinStock = [];
-        for (let i = 0; i < productosRequeridos.length; i++) {
-            const productoRequerido = productosRequeridos[i];
-            if (productoRequerido.productId.stock < productoRequerido.cantidad) {
-                    productosSinStock.push({
-                        id: productoRequerido.productId._id,
-                        cantidadRequerida: productoRequerido.cantidad,
+    async delete(filter){
+        return await this.persistence.delete(filter)
+    }
+
+    async getIdByProperty(property, value){
+        return await this.persistence.getIdByProperty(property,value)
+    }
+
+    async paginate(filter, options){
+        return await this.persistence.paginate(filter, options)
+    }
+    async checkStock(products) {
+        let withStock = [];
+        let outOfStock = [];
+        for (let i = 0; i < products.length; i++) {
+            const product = products[i];
+            if (product.productId.stock < product.cantidad) {
+                    outOfStock.push({
+                        id: product.productId._id,
+                        cantidad: product.cantidad,
                     })
                 } else {
-
-                    const stockActualizado = productoRequerido.productId.stock -= productoRequerido.cantidad
-                    await this.persistencia.actualizarPorId(productoRequerido.productId._id, { stock: stockActualizado});
-                    productosConStock.push({
-                    id: productoRequerido.productId._id,
-                    cantidadRequerida: productoRequerido.cantidad
+                    const updatedStock = product.productId.stock -= product.cantidad
+                    await this.persistence.update(productoRequerido.productId._id, { stock: updatedStock});
+                    withStock.push({
+                    id: product.productId._id,
+                    cantidad: product.cantidad
                 });
             }
         }
         return {
-            productosConStock,
-            productosSinStock
-        };
+            withStock,
+            outOfStock
+        }
     }
 }
-

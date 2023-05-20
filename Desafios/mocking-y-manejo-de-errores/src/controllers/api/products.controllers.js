@@ -25,8 +25,7 @@ export async function productsGetController(req, res, next) {
         } else if (req.query.sort === 'desc') {
             opcionesDePaginacion.sort = { price: -1 };
         }
-        // const productos = await productosService.mostrarPaginado(criterioDeBusqueda, opcionesDePaginacion)
-        const productos = await productRepository.mostrarPaginado(criterioDeBusqueda, opcionesDePaginacion)
+        const productos = await productRepository.paginate(criterioDeBusqueda, opcionesDePaginacion)
         res.status(200).json(productos)
     } catch (error) {
         next(error)
