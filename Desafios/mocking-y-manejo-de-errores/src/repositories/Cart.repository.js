@@ -1,3 +1,4 @@
+import { NotFoundError } from "../errors/errors.js"
 
 export default class CartRepository {
     constructor(persistence) {
@@ -12,7 +13,10 @@ export default class CartRepository {
     }
 
     async showCart(filter) {
-        return await this.persistence.readAndPopulate(filter)
+        const result = await this.persistence.readAndPopulate(filter)
+        if(result.length <= 0) {
+            throw new NotFoundError()}
+        return result
     }
 
     async updateCart(filter, updatedData) {
@@ -25,7 +29,7 @@ export default class CartRepository {
         // Verificar si el carrito existe
         const cart = await this.showCart({ _id: cartId });
         if (!cart) {
-            throw new Error('El carrito especificado no existe');
+            throw new NotFoundError()
         }
 
         // Verificar si el producto ya está en el carrito

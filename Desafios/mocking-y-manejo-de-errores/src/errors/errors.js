@@ -1,21 +1,64 @@
-export function errorHandler(error, req, res, next) {
-    res.status(decideStatusFromErrorType(error))
-    res.json({
-        status: 'error',
-        descripcion: error.message,
-    })
-}
-
-function decideStatusFromErrorType(error) {
-    if (error.message.startsWith('el campo')) {
-        return 400
-    } else if (error.message.startsWith('error de autenticacion')) {
-        return 401
-    } else if (error.message.startsWith('jwt expired')) {
-        return 401
-    } else if (error.message.startsWith('no encontrado')) {
-        return 404
-    } else {
-        return 500
+export class NotFoundError extends Error {
+    constructor() {
+        super('Recurso no encontrado')
+        this.name = 'NotFoundError'
+        this.statusCode = 404
     }
 }
+
+export class InvalidArgumentError extends Error {
+    constructor() {
+        super('Argumento no válido')
+        this.name = 'InvalidArgumentError'
+        this.statusCode = 400
+    }
+}
+
+export class UnauthorizedError extends Error {
+    constructor() {
+        super('Acceso no autorizado')
+        this.name = 'UnauthorizedError'
+        this.statusCode = 401
+    }
+}
+
+export class ForbiddenError extends Error {
+    constructor() {
+        super('Acceso prohibido')
+        this.name = 'ForbiddenError'
+        this.statusCode = 403
+    }
+}
+
+export class InvalidIntegerError extends Error {
+    constructor() {
+        super('Tiene que ingresar un número entero')
+        this.name = 'InvalidIntegerError'
+        this.statusCode = 400
+    }
+}
+
+export class InvalidNumberError extends Error {
+    constructor() {
+        super('Tiene que ingresar un número')
+        this.name = 'InvalidNumberError'
+        this.statusCode = 400
+    }
+}
+
+export class InvalidStringError extends Error {
+    constructor() {
+        super('El campo debe ser una cadena de caracteres')
+        this.name = 'InvalidStringError'
+        this.statusCode = 400
+    }
+}
+
+export class EmptyFieldError extends Error {
+    constructor() {
+        super('El campo no puede estar vacío')
+        this.name = 'EmptyFieldError'
+        this.statusCode = 400
+    }
+}
+

@@ -1,3 +1,4 @@
+import { NotFoundError } from "../../errors/errors.js";
 import Product from "./models/Product.js";
 import { readFile, writeFile } from "fs/promises";
 class ProductManagerFS {
@@ -67,7 +68,7 @@ class ProductManagerFS {
             const data = await readFile(this._path, 'utf-8');
             this._products = JSON.parse(data)
             if (this._products.findIndex(_product => _product.id === id) === -1) {
-                throw new Error("El producto que intentas actualizar, no existe.")
+                throw new NotFoundError()
             }
             const _product = this._products.find(_product => _product.id === id)
             const productUpdated = Object.assign(_product, newValues)

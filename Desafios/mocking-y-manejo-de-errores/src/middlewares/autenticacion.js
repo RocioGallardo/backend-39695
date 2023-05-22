@@ -1,6 +1,8 @@
+import { UnauthorizedError } from "../errors/errors.js"
+
 export function autenticacion(req, res, next){
     if(!req.user){ 
-        next(new Error("falló la autenticacion"))
+        next(new UnauthorizedError())
     }else{
         next()
     }

@@ -1,4 +1,5 @@
 //import { productosService } from '../../services/productos.service.js'
+import crearProductoMock from '../../mocks/productoMock.js';
 import { Product } from '../../models/Product.js'
 import { productRepository } from '../../repositories/index.js';
 
@@ -34,8 +35,7 @@ export async function productsGetController(req, res, next) {
 
 export async function productsGetOneController(req, res, next) {
     try {
-        // const producto = await productosService.mostrarUnoSegunId(req.params.pid)
-        const producto = await productRepository.mostrarUnoSegunId(req.params.pid)
+        const producto = await productRepository.read({_id: req.params.pid})
         res.status(200).json(producto)
         } catch (error) {
             next(error)
@@ -53,6 +53,20 @@ export async function productsPostController(req, res, next) {
     }
 }
 
+export async function mockProductsPostController(req, res, next) {
+    try {
+        const productosRegistrados = []
+        for (let i = 0; i < 100; i++) {
+            const product = crearProductoMock()
+            console.log(product)
+            const productoRegistrado = await productRepository.registrar(product)
+            productosRegistrados.push(productoRegistrado)
+        }
+        res.status(201).json(productosRegistrados)
+    } catch (error) {
+        next(error)
+    }
+}
 
 export async function productsPutController (req, res, next){
     try {

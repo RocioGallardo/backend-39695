@@ -1,15 +1,17 @@
+import { EmptyFieldError, InvalidIntegerError, InvalidNumberError, InvalidStringError } from "../errors/errors.js"
+
 function validarString(valor){
-    if (!valor) throw new Error('El campo no puede estar vacio')
-    if (typeof valor !== 'string') throw new Error('·l campo debe ser una cadena de caracteres')
+    if (!valor) throw new EmptyFieldError()
+    if (typeof valor !== 'string') throw new InvalidStringError()
     return valor
 }
 function validarNumero(valor){
-    if (typeof valor !== 'number') throw new Error('Tiene que ingresar un numero')
+    if (typeof valor !== 'number') throw new InvalidNumberError()
     return Number(valor)
 }
 function validarNumeroEntero(valor){
     validarNumero(valor)
-    if (!Number.isInteger(Number(valor))) throw new Error('Tiene que ingresar un numero entero')
+    if (!Number.isInteger(Number(valor))) throw new InvalidIntegerError()
     return Number(valor)
 }
 
@@ -24,3 +26,4 @@ export class Product {
         this.stock = validarNumeroEntero(stock)
     }
 }
+

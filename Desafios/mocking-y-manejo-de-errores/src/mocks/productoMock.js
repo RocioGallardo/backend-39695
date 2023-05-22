@@ -1,20 +1,14 @@
 import { faker } from "@faker-js/faker"
 import { Product } from "../models/Product.js"
 
-
-class ProductoMock{
-  constructor(){
-    return
-  }
-
+export default function crearProductoMock(){
+  return new Product({
+    title : faker.commerce.productName(), 
+    description : faker.commerce.productDescription(), 
+    price : faker.number.int({ min: 1, max: 1000 }), 
+    thumbnail : faker.system.commonFileName("jpg"),
+    code : faker.string.alpha({ length: 6, casing: 'upper'}),
+    stock : faker.number.int({ min: 1, max: 100 })
+  })  
 }
 
-function crearProductoMock(){
-  return new Product(
-    faker.commerce.productName, 
-    faker.commerce.productDescription, 
-    faker.commerce.price, 
-    faker.system.commonFileName("jpg"),
-    faker.string.alpha({ length: 6, casing: 'upper'}),
-    faker.number.bigInt({ max: 100 }))  
-}

@@ -1,3 +1,4 @@
+import { NotFoundError } from '../../errors/errors.js';
 import { cartRepository } from '../../repositories/index.js'
 
 export async function cartsGetController(req, res) {

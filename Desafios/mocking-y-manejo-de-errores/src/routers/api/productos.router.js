@@ -2,6 +2,7 @@
 import { Router } from 'express'
 
 import {
+        mockProductsPostController,
         productsDeleteController,
         productsGetController,
         productsGetOneController,
@@ -13,8 +14,9 @@ import { auth } from '../../middlewares/auth.js'
 
 export const productosRouter = Router()
 
+productosRouter.post('/mockingproducts', mockProductsPostController )
 productosRouter.post('/', autenticacion, auth(["admin"]), productsPostController) // guardar producto
-productosRouter.post('/mockingproducts', autenticacion, auth(["admin"]), )
+
 
 
 productosRouter.put('/:pid', autenticacion, auth(["admin"]),productsPutController)
