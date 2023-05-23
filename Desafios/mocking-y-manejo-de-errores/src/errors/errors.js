@@ -62,3 +62,27 @@ export class EmptyFieldError extends Error {
     }
 }
 
+
+export class InvalidFormatError extends Error {
+    constructor() {
+        super('El formato no es válido')
+        this.name = 'InvalidFormatError'
+        this.statusCode = 400
+    }
+}
+
+export class InvalidLengthError extends Error {
+    constructor() {
+        super('La longitud no es válida')
+        this.name = 'InvalidLengthError'
+        this.statusCode = 400
+    }
+}
+
+export class UserExistsError extends Error {
+    constructor() {
+        super('El usuario ya existe');
+        this.name = 'UserExistsError';
+        this.statusCode = 422;
+    }
+}

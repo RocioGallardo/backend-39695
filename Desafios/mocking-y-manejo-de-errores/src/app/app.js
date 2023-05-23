@@ -13,7 +13,7 @@ import { webRouter } from '../routers/web/web.router.js'
 import { configureMessagesSocket } from '../sockets/messages.socket.js'
 import { agregarAlCarritoSocket } from '../sockets/agregrarAlCarrito.socket.js'
 import { passportInitialize, passportSession } from '../middlewares/passport.js'
-import { InvalidArgumentError, NotFoundError } from '../errors/errors.js'
+import { InvalidArgumentError, InvalidFormatError, InvalidLengthError, NotFoundError, UserExistsError } from '../errors/errors.js'
 
 export const app = express()
 
@@ -56,7 +56,13 @@ app.use((error, req, res, next) => {
         res.status(error.statusCode).json({ error: error.message })
     } else if (error instanceof EmptyFieldError) {
         res.status(error.statusCode).json({ error: error.message })
-    } else {
+    } else if (error instanceof InvalidFormatError) {
+        res.status(error.statusCode).json({ error: error.message })
+    }  else if (error instanceof InvalidLengthError) {
+        res.status(error.statusCode).json({ error: error.message })
+    } else if (error instanceof UserExistsError) {
+        res.status(error.statusCode).json({ error: error.message })
+    }else {
         res.status(500).json({ error: 'Error interno del servidor' })
     }
 })

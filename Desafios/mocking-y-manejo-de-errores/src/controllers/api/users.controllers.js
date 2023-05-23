@@ -1,29 +1,9 @@
-import { cartRepository, userRepository } from "../../repositories/index.js";
-import { hashear } from "../../utils/criptografia.js";
+import { userRepository } from "../../repositories/index.js"
+import { userService } from "../../services/user.service.js"
 
 export async function postUserController(req, res, next) {
     try {
-        const { firstName, lastName, email, age, password, rol } = req.body
-        const exists = await userRepository.obtenerPorPropiedad("email", email)
-        if (exists.length > 0) return res.status(422).json({ status: "error", error: "User already exists" })
-        const CartId = await cartRepository.createCart()
-        const user = {
-            firstName,
-            lastName,
-            email,
-            age,
-            password: hashear(password),
-            cart: CartId,
-            rol
-        }
-        await userRepository.crear(user)
-        req.login(user, error =>{
-            if(error){
-                next(new Error("falló el login"))
-            } else{
-                res.status(201).json(req.user)
-            }
-        })
+        userService.create(req.body)
     } catch (error) {
         next(error)
     }
