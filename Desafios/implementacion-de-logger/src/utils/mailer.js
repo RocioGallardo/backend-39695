@@ -1,5 +1,6 @@
 import { createTransport } from "nodemailer";
 import { emailMailer, passMailer } from "../config/config.js";
+import { winstonLogger } from "./logger.js";
 
 const clienteNodeMailer = createTransport({
     service: "gmail",
@@ -21,7 +22,7 @@ const mailOptions = {
 
 try {
     const info = await clienteNodeMailer.sendMail(mailOptions)
-    console.log(info)
+    winstonLogger.info(info)
 } catch(error){
-    console.log(error)
+    winstonLogger.error(error)
 }

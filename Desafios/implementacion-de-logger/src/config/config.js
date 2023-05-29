@@ -8,3 +8,7 @@ export const persistenciaEnv = process.env.PERCISTENCE
 
 export const emailMailer = process.env.EMAILMAILER
 export const passMailer = process.env.PASSMAILER
+
+//logger
+
+export const loggerEnv = process.env.LOGGER

@@ -24,7 +24,7 @@ switch(persistenciaEnv){
         }
             break;
     default:
-    console.log("error al configurar persistencia")
+        winstonLogger.error("error al configurar persistencia")
     break
 }
 

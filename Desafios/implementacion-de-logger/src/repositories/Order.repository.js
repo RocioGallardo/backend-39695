@@ -1,3 +1,4 @@
+import { winstonLogger } from "../utils/logger.js";
 
 export default class OrderRepository {
     constructor(persistence){
@@ -11,7 +12,7 @@ export default class OrderRepository {
         try {
             return ordenesEncontradas = await this.persistence.read(data)
         } catch (error) {
-            console.log(`Error en la consulta: ${error}`);
+            winstonLogger.error(`Error en la consulta: ${error}`)
         }
     }
 

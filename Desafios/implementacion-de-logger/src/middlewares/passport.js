@@ -8,7 +8,7 @@ import { userRepository } from '../repositories/index.js';
 
 
 passport.use('login', new Strategy({usernameField: "email"}, async (email, password, done) => {
-    const user = await userRepository.readByProperty({"email": email})
+    const user = await userRepository.read({"email": email})
     if (user.length <= 0 ) {
         if (email === adminEmail && password === adminPassword) {
             const adminUser = {
@@ -33,7 +33,6 @@ passport.use('github', new GithubStrategy({
     callbackURL: githubCallbackUrl,
     scope: [ 'read:user' ]
 }, async (accessToken, refreshToken, profile, done) => {
-    //console.log(profile)
     let user
         user = {
             email: profile.email ?? profile.username,

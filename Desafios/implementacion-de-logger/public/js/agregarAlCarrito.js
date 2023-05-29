@@ -26,7 +26,6 @@ btnAgregarAlCarrito.forEach((btn) => {
             }
         } catch (error) {
             console.error(error);
-            // Mostrar un mensaje de error al usuario
         }
     });
 });

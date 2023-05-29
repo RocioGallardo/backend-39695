@@ -12,7 +12,7 @@ if (registerForm instanceof HTMLFormElement) {
             firstName : firstNameInput.value,
             lastName : lastNameInput.value,
             email : emailInput.value,
-            age : ageInput.value,
+            age : Number(ageInput.value),
             password : passwordInput.value,
             rol : "user"
         }

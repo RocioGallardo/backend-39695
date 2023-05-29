@@ -12,17 +12,35 @@ export class ManagerMongoose {
         return await this.collection.create(record);
     }
 
+    // async read(filter = {}) {
+    //     if (typeof filter === 'object' && !Array.isArray(filter)) {
+    //         const result = await this.collection.findOne(filter).lean();
+    //         result._id = result._id.toString()
+    //         return result
+    //     } else {
+    //         const results = await this.collection.find(filter).lean();
+    //         return results.map(result => {
+    //             result._id = result._id.toString()
+    //             return result
+    //         })
+    //     }
+    // }
+
     async read(filter = {}) {
         if (typeof filter === 'object' && !Array.isArray(filter)) {
-            const result = await this.collection.findOne(filter)/*.populate('listProducts.productId')*/.lean();
-            result._id = result._id.toString()
-            return result;
+            const result = await this.collection.findOne(filter).lean();
+            if (result) {
+                result._id = result._id.toString();
+                return result;
+            } else {
+                return []
+            }
         } else {
-            const results = await this.collection.find(filter)/*.populate('listProducts.productId')*/.lean();
+            const results = await this.collection.find(filter).lean();
             return results.map(result => {
-                result._id = result._id.toString()
-                return result
-            })
+                result._id = result._id.toString();
+                return result;
+            });
         }
     }
 

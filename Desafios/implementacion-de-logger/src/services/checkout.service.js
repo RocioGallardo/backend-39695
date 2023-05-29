@@ -26,7 +26,7 @@ class CheckoutService {
         if(stock.withStock){
             // creo ticket
             const precioTotal = await this.calculateAmount(stock.withStock)
-            const user = await userRepository.readByProperty({cart : idCarrito})
+            const user = await userRepository.read({cart : idCarrito})
             const emailUser = user.email
             const ticket = new Ticket(precioTotal, emailUser)
             const order = await orderRepository.createOrder(ticket)

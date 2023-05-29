@@ -5,6 +5,7 @@ export function auth(roles){
         if(roles.includes(req.user.rol)){
             next()
         } else{
+            req.logger.error(new ForbiddenError())
             next(new ForbiddenError())
         }
     }

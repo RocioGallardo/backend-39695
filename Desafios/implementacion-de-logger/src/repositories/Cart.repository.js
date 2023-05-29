@@ -31,7 +31,6 @@ export default class CartRepository {
         if (!cart) {
             throw new NotFoundError()
         }
-
         // Verificar si el producto ya está en el carrito
         const existingProductIndex = cart[0].listProducts.findIndex(p => p.productId.toString() === _id);
         if (existingProductIndex !== -1) {
@@ -44,7 +43,6 @@ export default class CartRepository {
                 cantidad: cant
             });
         }
-
         // Actualizar el carrito en la base de datos
         const filter = { _id: cartId };
         const updatedData = { listProducts: cart[0].listProducts };

@@ -13,7 +13,9 @@ import { webRouter } from '../routers/web/web.router.js'
 import { configureMessagesSocket } from '../sockets/messages.socket.js'
 import { agregarAlCarritoSocket } from '../sockets/agregrarAlCarrito.socket.js'
 import { passportInitialize, passportSession } from '../middlewares/passport.js'
-import { InvalidArgumentError, InvalidFormatError, InvalidLengthError, NotFoundError, UserExistsError } from '../errors/errors.js'
+import { EmptyFieldError, ForbiddenError, InvalidArgumentError, InvalidFormatError, InvalidIntegerError, InvalidLengthError, InvalidNumberError, InvalidStringError, NotFoundError, UnauthorizedError, UserExistsError } from '../errors/errors.js'
+import { winstonLogger } from '../utils/logger.js'
+import { logger } from '../middlewares/logger.js'
 
 export const app = express()
 
@@ -37,6 +39,8 @@ app.use(session({
 
 
 app.use(passportInitialize, passportSession)
+
+app.use(logger)
 
 
 app.use((error, req, res, next) => {
@@ -67,17 +71,24 @@ app.use((error, req, res, next) => {
     }
 })
 
+
+
 app.use('/api', apiRouter)
 app.use('/', webRouter)
 
+
 await mongoose.connect(MONGODB_CNX_STR)
 
-const servidor = app.listen(PORT, () => { console.log(`conectado a ${PORT}`) })
+
+
+const servidor = app.listen(PORT, () => { 
+    winstonLogger.info(`conectado a  ${PORT}`)
+})
 
 const io = new Server(servidor)
 
 io.on('connection', socket => {
-    console.log('nuevo socket conectado')
+    winstonLogger.info('nuevo socket conectado')
     configureMessagesSocket(io, socket)
     agregarAlCarritoSocket(io, socket)
 })

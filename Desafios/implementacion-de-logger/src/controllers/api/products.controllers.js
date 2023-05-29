@@ -29,6 +29,7 @@ export async function productsGetController(req, res, next) {
         const productos = await productRepository.paginate(criterioDeBusqueda, opcionesDePaginacion)
         res.status(200).json(productos)
     } catch (error) {
+        req.logger.error(`message: ${error.message} - ${req.method} en ${req.url} - ${new Date().toLocaleTimeString()}`)
         next(error)
     }
 }
@@ -38,6 +39,7 @@ export async function productsGetOneController(req, res, next) {
         const producto = await productRepository.read({_id: req.params.pid})
         res.status(200).json(producto)
         } catch (error) {
+            req.logger.error(`message: ${error.message} - ${req.method} en ${req.url} - ${new Date().toLocaleTimeString()}`)
             next(error)
     }    
 }
@@ -49,6 +51,7 @@ export async function productsPostController(req, res, next) {
         const productoRegistrado = await productRepository.registrar(product)
         res.status(201).json(productoRegistrado)
     } catch (error) {
+        req.logger.error(`message: ${error.message} - ${req.method} en ${req.url} - ${new Date().toLocaleTimeString()}`)
         next(error)
     }
 }
@@ -58,12 +61,12 @@ export async function mockProductsPostController(req, res, next) {
         const productosRegistrados = []
         for (let i = 0; i < 100; i++) {
             const product = crearProductoMock()
-            console.log(product)
             const productoRegistrado = await productRepository.registrar(product)
             productosRegistrados.push(productoRegistrado)
         }
         res.status(201).json(productosRegistrados)
     } catch (error) {
+        req.logger.error(`message: ${error.message} - ${req.method} en ${req.url} - ${new Date().toLocaleTimeString()}`)
         next(error)
     }
 }
@@ -75,6 +78,7 @@ export async function productsPutController (req, res, next){
         const productoActualizado = await productRepository.actualizarPorId(idProducto, datosAActualizar)
         res.status(200).json(productoActualizado)
         } catch (error) {
+            req.logger.error(`message: ${error.message} - ${req.method} en ${req.url} - ${new Date().toLocaleTimeString()}`)
             next(error)
     } 
 }
@@ -82,9 +86,10 @@ export async function productsPutController (req, res, next){
 export async function productsDeleteController (req, res, next){
     try {
         const idProducto = req.params.pid
-        await productRepository.eliminarUnoSegunId(idProducto)
+        await productRepository.delete({_id : idProducto})
         res.status(200)
         } catch (error) {
+            req.logger.error(`message: ${error.message} - ${req.method} en ${req.url} - ${new Date().toLocaleTimeString()}`)
             next(error)
     } 
 }

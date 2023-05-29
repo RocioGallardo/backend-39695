@@ -3,6 +3,7 @@ import { productosRouter } from './productos.router.js'
 import { cartRouter } from './cart.router.js'
 import { usersRouter } from './users.router.js'
 import { sessionsRouter } from './sessions.router.js'
+import { loggerRouter } from './logger.router.js'
 
 
 export const apiRouter = Router()
@@ -15,6 +16,8 @@ apiRouter.use('/carts', cartRouter)
 
 apiRouter.use('/users', usersRouter)
 apiRouter.use('/sessions', sessionsRouter)
+
+apiRouter.use('/loggerTest', loggerRouter)
 
 
 

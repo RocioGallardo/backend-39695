@@ -1,0 +1,12 @@
+{"level":"error","name":"UnauthorizedError","statusCode":401}
+{"date":"2023-05-29T20:46:14.348Z","level":"error","name":"UnauthorizedError","statusCode":401}
+{"date":"18:23:21","level":"error","name":"UnauthorizedError","statusCode":401}
+{"date":"18:32:33","level":"error","name":"UnauthorizedError","statusCode":401}
+{"date":"18:33:16","level":"error","name":"UnauthorizedError","statusCode":401}
+{"date":"18:34:14","level":"error","name":"ForbiddenError","statusCode":403}
+{"date":"18:34:16","level":"error","name":"UnauthorizedError","statusCode":401}
+{"date":"18:38:21","level":"error","name":"UnauthorizedError","statusCode":401}
+{"level":"error"}
+{"date":"18:44:29","level":"error","name":"UnauthorizedError","statusCode":401}
+{"level":"error","message":"message: userRepository.readl is not a function - POST en /647515e16b7e4096cc23de4e/purchase - 18:45:00"}
+{"level":"error","message":"message: El usuario ya existe - POST en / - 20:15:18"}

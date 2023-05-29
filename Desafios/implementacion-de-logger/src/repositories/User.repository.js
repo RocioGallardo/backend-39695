@@ -10,7 +10,7 @@ export default class UserRepository{
         return await this.persistence.create(productToInsert)
     }
 
-    async readByProperty(filter){
+    async read(filter){
         return await this.persistence.read(filter)
     }
 
