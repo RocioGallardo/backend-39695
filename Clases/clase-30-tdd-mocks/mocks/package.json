@@ -1,0 +1,19 @@
+{
+  "type": "module",
+  "name": "mocks",
+  "version": "1.0.0",
+  "description": "",
+  "main": "src/main.js",
+  "scripts": {
+    "start": "node ."
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@faker-js/faker": "^7.6.0"
+  },
+  "dependencies": {
+    "mongoose": "^7.1.0"
+  }
+}
