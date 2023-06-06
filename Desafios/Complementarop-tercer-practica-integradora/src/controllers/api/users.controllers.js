@@ -22,3 +22,11 @@ export async function getUsersController(req, res, next) {
     }
     
 }
+
+export async function putUsersController(req,res,next){
+    try {
+        
+    } catch (error) {
+        
+    }
+}
