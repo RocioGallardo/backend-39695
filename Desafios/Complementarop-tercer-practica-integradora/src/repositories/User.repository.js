@@ -14,6 +14,9 @@ export default class UserRepository{
         return await this.persistence.read(filter)
     }
 
+    async update(filter, updatedData){
+        return await this.persistence.update(filter, updatedData)
+    }
 }
 
 

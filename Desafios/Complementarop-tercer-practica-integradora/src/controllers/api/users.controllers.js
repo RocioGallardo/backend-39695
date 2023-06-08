@@ -25,8 +25,12 @@ export async function getUsersController(req, res, next) {
 
 export async function putUsersController(req,res,next){
     try {
-        
+        const filter = req.params.uid
+        const updatedData = req.body
+        const actualizado = await userRepository.update(filter, updatedData)
+        res.status(200).json(actualizado)
     } catch (error) {
-        
+        req.logger.error(`message: ${error.message} - ${req.method} en ${req.url} - ${new Date().toLocaleTimeString()}`)
+        next(error)
     }
 }

@@ -24,6 +24,15 @@ class UserService {
     }
     await userRepository.create(userToCreate)
   }
+  async updatePassword(filter, updatedData){
+    const user = await userRepository.read(filter)
+    if(validarQueSeanIguales(updatedData, user.password)){
+      // TODO CREAR ERROR
+    }
+    const hasheado = hashear(updatedData)
+    const updated = await userRepository.update(filter, {password: hasheado})
+    return updated
+  }
 }
 
 export const userService = new UserService()
