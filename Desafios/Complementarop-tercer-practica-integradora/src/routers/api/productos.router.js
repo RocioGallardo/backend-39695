@@ -19,8 +19,8 @@ productosRouter.post('/', autenticacion, auth(["admin", "premium"]), productsPos
 
 
 
-productosRouter.put('/:pid', autenticacion, auth(["admin"]),productsPutController)
-productosRouter.delete('/:pid',autenticacion, auth(["admin"]), productsDeleteController)
+productosRouter.put('/:pid', autenticacion, auth(["admin", "premium"]),productsPutController)
+productosRouter.delete('/:pid',autenticacion, auth(["admin", "premium"]), productsDeleteController)
 
 
 

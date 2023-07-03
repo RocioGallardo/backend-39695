@@ -7,8 +7,8 @@ export const productosRouter = Router()
 
 productosRouter.get('/', autenticacion , productsGetController)
 
-productosRouter.get('/create', autenticacion, auth(["admin"]) , crearProductsGetController)
-productosRouter.get('/:pid/edit', autenticacion, auth(["admin"]), editarProductsGetController)
+productosRouter.get('/create', autenticacion, auth(["admin", "premium"]) , crearProductsGetController)
+productosRouter.get('/:pid/edit', autenticacion, auth(["admin", "premium"]), editarProductsGetController)
 
 
 

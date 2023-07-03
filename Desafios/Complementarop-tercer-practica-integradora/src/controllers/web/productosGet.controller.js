@@ -30,7 +30,7 @@ export async function productsGetController(req, res, next) {
             .join('&');
 
         res.render('productos', {
-            esUser: req.user.rol == "user" ? true : false,
+            esUser: req.user.rol === "user" ? true : false,
             esAdmin: req.user.rol === "admin" || req.user.rol === "premium" ? true : false,
             user: req.user?.email,
             rol: req.user?.rol,
@@ -49,7 +49,7 @@ export async function productsGetController(req, res, next) {
 export async function crearProductsGetController(req, res, next) {
     try {
         res.render('crearProductos', {
-            esUser: req.user.rol == "user" ? true : false,
+            esUser: req.user.rol === "user" ? true : false,
             esAdmin: req.user.rol === "admin" || req.user.rol === "premium" ? true : false,
             user: req.user?.email,
             rol: req.user?.rol,
@@ -64,13 +64,13 @@ export async function crearProductsGetController(req, res, next) {
 export async function editarProductsGetController(req, res, next) {
     try {
         const idProduct = req.params.pid
-        const product = await productRepository.read(idProduct)
+        const product = await productRepository.read({_id: idProduct})
         res.render('editProducts', {
-            esUser: req.user.rol == "user" ? true : false,
+            esUser: req.user.rol === "user" ? true : false,
             esAdmin: req.user.rol === "admin" || req.user.rol === "premium" ? true : false,
             user: req.user?.email,
             rol: req.user?.rol,
-            titulo: 'Editat Productos',
+            titulo: 'Editar Productos',
             loggedIn: true,
             product: product
         })

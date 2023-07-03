@@ -47,8 +47,10 @@ export async function productsGetOneController(req, res, next) {
 
 export async function productsPostController(req, res, next) {
     try {
-        //const owner = req.user._id || "admin"
-        const product = new Product(req.body, owner)
+        console.log(req.user._id)
+        req.body.owner = req.user._id || "admin"
+        const product = new Product(req.body)
+        console.log(product)
         const productoRegistrado = await productRepository.registrar(product)
         res.status(201).json(productoRegistrado)
     } catch (error) {
@@ -76,7 +78,8 @@ export async function productsPutController (req, res, next){
     try {
         const idProducto = req.params.pid
         const datosAActualizar = req.body
-        const product = await productRepository({_id : idProducto})
+        const product = await productRepository.read({idProducto})
+        console.log(product)
         if(req.user._id == product.owner || req.user.rol == "admin"){
             const productoActualizado = await productRepository.actualizarPorId(idProducto, datosAActualizar)
             res.status(200).json(productoActualizado)
@@ -92,7 +95,7 @@ export async function productsPutController (req, res, next){
 export async function productsDeleteController (req, res, next){
     try {
         const idProducto = req.params.pid
-        const product = await productRepository({_id : idProducto})
+        const product = await productRepository.read({_id : idProducto})
         if(req.user._id == product.owner || req.user.rol == "admin"){
             await productRepository.delete({_id : idProducto})
             res.status(200)
