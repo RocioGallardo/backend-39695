@@ -31,7 +31,7 @@ export async function productsGetController(req, res, next) {
 
         res.render('productos', {
             esUser: req.user.rol == "user" ? true : false,
-            esAdmin: req.user.rol == "admin" ? true : false,
+            esAdmin: req.user.rol === "admin" || req.user.rol === "premium" ? true : false,
             user: req.user?.email,
             rol: req.user?.rol,
             query: queryParams,
@@ -50,7 +50,7 @@ export async function crearProductsGetController(req, res, next) {
     try {
         res.render('crearProductos', {
             esUser: req.user.rol == "user" ? true : false,
-            esAdmin: req.user.rol == "admin" ? true : false,
+            esAdmin: req.user.rol === "admin" || req.user.rol === "premium" ? true : false,
             user: req.user?.email,
             rol: req.user?.rol,
             titulo: 'Crear Productos',
@@ -67,7 +67,7 @@ export async function editarProductsGetController(req, res, next) {
         const product = await productRepository.read(idProduct)
         res.render('editProducts', {
             esUser: req.user.rol == "user" ? true : false,
-            esAdmin: req.user.rol == "admin" ? true : false,
+            esAdmin: req.user.rol === "admin" || req.user.rol === "premium" ? true : false,
             user: req.user?.email,
             rol: req.user?.rol,
             titulo: 'Editat Productos',
