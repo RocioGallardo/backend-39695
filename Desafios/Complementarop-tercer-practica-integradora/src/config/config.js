@@ -6,9 +6,19 @@ export const persistenciaEnv = process.env.PERCISTENCE
 
 //mailer
 
-export const emailMailer = process.env.EMAILMAILER
-export const passMailer = process.env.PASSMAILER
+export const EMAIL_CONFIG = {
+  service: 'gmail',
+  port: 587,
+  auth: {
+    user: process.env.EMAILMAILER,
+    pass: process.env.PASSMAILER
+  }
+}
 
 //logger
 
 export const loggerEnv = process.env.LOGGER
+
+//JWT
+
+export const JWT_SECRET = "S3CTR3T"

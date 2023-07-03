@@ -1,8 +1,9 @@
 import { Router } from 'express'
-import { getUsersController, postUserController, putUsersController } from '../../controllers/api/users.controllers.js'
+import { getUsersController, postUserController, putPasswordUsersController } from '../../controllers/api/users.controllers.js'
 
 export const usersRouter = Router()
 
 usersRouter.get('/', getUsersController)
 usersRouter.post('/', postUserController)
-usersRouter.put('/:uid', putUsersController)
+usersRouter.put('/:token', putPasswordUsersController)
+usersRouter.put('/premium/:uid', )

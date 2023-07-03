@@ -1,28 +1,30 @@
-import { createTransport } from "nodemailer";
-import { emailMailer, passMailer } from "../config/config.js";
-import { winstonLogger } from "./logger.js";
+import { createTransport } from 'nodemailer'
+import { EMAIL_CONFIG } from '../config/config.js'
+import { winstonLogger } from './logger.js'
 
-const clienteNodeMailer = createTransport({
-    service: "gmail",
-    port: 587,
-    auth: {
-        user: "hola.rogallardo@gmail.com",
-        pass: "eijmvzbmxikvecdj"
+class Mailer {
+
+    constructor(config) {
+        this.clienteNodemailer = createTransport(config)
     }
-})
 
-const TEST_MAIL = "info.tiendabrave@gmail.com"
+    async send(destinatario, asunto, mensaje) {
+        const mailOptions = {
+            from: 'Enviador de mails',
+            to: destinatario,
+            subject: asunto,
+            html: mensaje,
+        }
 
-const mailOptions = {
-    from : "Servidor Node.js",
-    to : TEST_MAIL,
-    subject : "Mail de prueba desde Node js",
-    html : "<h1>Contenido de prueba</h1>",
+        try {
+            const info = await this.clienteNodemailer.sendMail(mailOptions)
+            winstonLogger.info(info)
+            return info
+        } catch (error) {
+            winstonLogger.error(error)
+            throw error
+        }
+    }
 }
 
-try {
-    const info = await clienteNodeMailer.sendMail(mailOptions)
-    winstonLogger.info(info)
-} catch(error){
-    winstonLogger.error(error)
-}
+export const mailer = new Mailer(EMAIL_CONFIG)

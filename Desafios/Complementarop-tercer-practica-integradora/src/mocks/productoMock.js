@@ -8,7 +8,8 @@ export default function crearProductoMock(){
     price : faker.number.int({ min: 1, max: 1000 }), 
     thumbnail : faker.system.commonFileName("jpg"),
     code : faker.string.alpha({ length: 6, casing: 'upper'}),
-    stock : faker.number.int({ min: 1, max: 100 })
+    stock : faker.number.int({ min: 1, max: 100 }),
+    owner: "admin"
   })  
 }
 

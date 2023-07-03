@@ -7,4 +7,5 @@ export const productsManagerMongo = new ManagerMongoose('products', {
     thumbnail: { type: String, required: true },
     code: { type: String, required: true },
     stock: { type: Number, required: true },
+    owner: { type: String, required: true },
 })

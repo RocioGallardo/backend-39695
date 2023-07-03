@@ -1,6 +1,8 @@
 import { UserExistsError } from "../errors/errors.js"
-import { cartRepository, userRepository } from "../repositories/index.js"
-import { hashear } from "../utils/criptografia.js"
+import { Token } from "../models/Token.js"
+import { cartRepository, tokenRepository, userRepository } from "../repositories/index.js"
+import { decodificarToken, generarToken, hashear, validarQueSeanIguales } from "../utils/criptografia.js"
+import { mailer } from "../utils/mailer.js"
 
 class UserService {
   async checKIfExist(email){
@@ -24,14 +26,42 @@ class UserService {
     }
     await userRepository.create(userToCreate)
   }
-  async updatePassword(filter, updatedData){
+  async updatePassword(filter, updatedData, token){
+    let resetToken
+    try {
+      resetToken = await tokenRepository.readToken(filter)
+    } catch (error) {
+      throw new Error(error)
+    }
+    try {
+      decodificarToken(token)
+    } catch (error) {
+      throw new Error(error)
+    }
+    
+    if(token !== resetToken.token){
+      //TODO ERROR, NO TIENE AUTORIZACION PARA RESTABLECER
+    }
     const user = await userRepository.read(filter)
-    if(validarQueSeanIguales(updatedData, user.password)){
+    if(validarQueSeanIguales(updatedData.password, user.password)){
       // TODO CREAR ERROR
     }
-    const hasheado = hashear(updatedData)
+    const hasheado = hashear(updatedData.password)
     const updated = await userRepository.update(filter, {password: hasheado})
     return updated
+  }
+
+  
+
+  async generarTokenPassword(filter){
+    
+    const user = await userRepository.read(filter)
+    const token = generarToken(filter, '1h')
+    const url = "http://localhost:8080/"
+    const mensaje = `<a href="${url}token/${token}">reestablecer</a>`
+    await mailer.send(user.email, "Restablecer contraseña", mensaje )
+    const objToken = new Token(filter, {token: token})
+    tokenRepository.createToken(objToken)
   }
 }
 

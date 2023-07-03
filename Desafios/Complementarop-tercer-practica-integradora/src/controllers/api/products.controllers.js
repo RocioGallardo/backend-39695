@@ -47,7 +47,8 @@ export async function productsGetOneController(req, res, next) {
 
 export async function productsPostController(req, res, next) {
     try {
-        const product = new Product(req.body)
+        //const owner = req.user._id || "admin"
+        const product = new Product(req.body, owner)
         const productoRegistrado = await productRepository.registrar(product)
         res.status(201).json(productoRegistrado)
     } catch (error) {
@@ -75,8 +76,13 @@ export async function productsPutController (req, res, next){
     try {
         const idProducto = req.params.pid
         const datosAActualizar = req.body
-        const productoActualizado = await productRepository.actualizarPorId(idProducto, datosAActualizar)
-        res.status(200).json(productoActualizado)
+        const product = await productRepository({_id : idProducto})
+        if(req.user._id == product.owner || req.user.rol == "admin"){
+            const productoActualizado = await productRepository.actualizarPorId(idProducto, datosAActualizar)
+            res.status(200).json(productoActualizado)
+        }else{
+            throw new Error("no tiene el permiso correspondiente")
+        }
         } catch (error) {
             req.logger.error(`message: ${error.message} - ${req.method} en ${req.url} - ${new Date().toLocaleTimeString()}`)
             next(error)
@@ -86,8 +92,13 @@ export async function productsPutController (req, res, next){
 export async function productsDeleteController (req, res, next){
     try {
         const idProducto = req.params.pid
-        await productRepository.delete({_id : idProducto})
-        res.status(200)
+        const product = await productRepository({_id : idProducto})
+        if(req.user._id == product.owner || req.user.rol == "admin"){
+            await productRepository.delete({_id : idProducto})
+            res.status(200)
+        } else{
+            throw new Error("no tiene el permiso correspondiente")
+        }
         } catch (error) {
             req.logger.error(`message: ${error.message} - ${req.method} en ${req.url} - ${new Date().toLocaleTimeString()}`)
             next(error)

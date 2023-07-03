@@ -31,6 +31,14 @@ webRouter.get('/login', (req, res) => {
     res.render('login', {title: "Login", loggedIn: loggedIn} )
 })
 
+webRouter.get('/restablecer', (req, res) =>{
+    res.render('restablecer', {title: "Restablecer"})
+})
+
+webRouter.get('/token/:token', (req, res) =>{
+    res.render('token', {title: "Restablecer", token: req.params.token})
+})
+
 
 webRouter.get("*", (req,res,next)=>{
     res.send("ruta no reconocida" + req.url)

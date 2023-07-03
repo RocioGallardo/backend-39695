@@ -1,5 +1,6 @@
 import { Cart } from '../../models/Cart.js'
 import { cartRepository, orderRepository } from '../../repositories/index.js'
+import { cartService } from '../../services/cart.service.js'
 import { checkoutService } from '../../services/checkout.service.js'
 
 
@@ -18,6 +19,7 @@ export async function cartPostController(req, res, next) {
 export async function cartPutController(req, res, next) {
     try {
         const idDelProducto = req.params.pid || req.body.idProducto
+        await cartService.checkOwner(req.user, idDelProducto)
         const cart = new Cart({idCarrito: req.params.cid, idProducto : idDelProducto, cantidad: req.body.cantidad})
         const carritoActualizado = await cartRepository.updateCart(cart)
         res.status(200).json(carritoActualizado)

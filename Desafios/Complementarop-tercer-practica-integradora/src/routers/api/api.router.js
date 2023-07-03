@@ -4,6 +4,7 @@ import { cartRouter } from './cart.router.js'
 import { usersRouter } from './users.router.js'
 import { sessionsRouter } from './sessions.router.js'
 import { loggerRouter } from './logger.router.js'
+import { tokenRouter } from './token.router.js'
 
 
 export const apiRouter = Router()
@@ -18,6 +19,7 @@ apiRouter.use('/users', usersRouter)
 apiRouter.use('/sessions', sessionsRouter)
 
 apiRouter.use('/loggerTest', loggerRouter)
+apiRouter.use('/token', tokenRouter)
 
 
 

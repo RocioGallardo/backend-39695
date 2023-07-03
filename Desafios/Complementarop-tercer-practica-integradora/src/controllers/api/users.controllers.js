@@ -23,9 +23,23 @@ export async function getUsersController(req, res, next) {
     
 }
 
-export async function putUsersController(req,res,next){
+export async function putPasswordUsersController(req,res,next){
     try {
-        const filter = req.params.uid
+        const token = req.params.token
+        const filter = {email: req.body.email}
+        const updatedData = req.body
+        const actualizado = await userService.updatePassword(filter, updatedData, token)
+        res.status(200).json(actualizado)
+    } catch (error) {
+        req.logger.error(`message: ${error.message} - ${req.method} en ${req.url} - ${new Date().toLocaleTimeString()}`)
+        next(error)
+    }
+}
+
+export async function putRolUserController(req,res,next){
+    try {
+        const uid = req.params.uid
+        const filter = {_id: uid}
         const updatedData = req.body
         const actualizado = await userRepository.update(filter, updatedData)
         res.status(200).json(actualizado)

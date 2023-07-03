@@ -15,7 +15,7 @@ import { auth } from '../../middlewares/auth.js'
 export const productosRouter = Router()
 
 productosRouter.post('/mockingproducts', mockProductsPostController )
-productosRouter.post('/', autenticacion, auth(["admin"]), productsPostController) // guardar producto
+productosRouter.post('/', autenticacion, auth(["admin", "premium"]), productsPostController) // guardar producto
 
 
 
